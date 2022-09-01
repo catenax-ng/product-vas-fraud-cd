@@ -217,11 +217,10 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
     spec:
-      imagePullSecrets:
-      - name: {{ .Values.fraudcase.registrySecret }}
+
       containers:
         - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
-          image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.global.tag }}"
+          image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"
           
           imagePullPolicy: {{ .Values.fraudcase.image.pullPolicy }}
 
@@ -241,26 +240,4 @@ spec:
             value: {{ .Values.fraudcase.catenaxApiKey | quote }}
           - name: CATENAX_API_URL 
             value: {{ .Values.fraudcase.catenaxApiUrl | quote }}
-          
-
-          {{- if .Values.fraudcase.livenessProbe.enabled }}
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: {{ .Values.fraudcase.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.fraudcase.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.fraudcase.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.fraudcase.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.fraudcase.livenessProbe.failureThreshold }}
-          {{- end }}
-          {{- if .Values.fraudcase.readinessProbe.enabled }}
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: {{ .Values.fraudcase.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.fraudcase.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.fraudcase.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.fraudcase.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.fraudcase.readinessProbe.failureThreshold }}
+      
