@@ -1,0 +1,87 @@
+
+
+{{- if .Values.api.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name:  {{ printf "%s-%s" $.Release.Name "api-ingress" }} 
+  labels:
+    app:  {{ printf "%s-%s" $.Release.Name "api" }} 
+    chart: {{ template "dashboard.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+  annotations:
+    {{- if .Values.api.ingress.certManager }}
+    kubernetes.io/tls-acme: "true"
+    {{- end }}
+    {{- range $key, $value := .Values.api.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  rules:
+  {{- range .Values.api.ingress.hosts }}
+  - host: {{ .name }}
+    http:
+      paths:
+        - path: {{ default "/" .path }}
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ printf "%s-%s" $.Release.Name "api-svc" }} 
+              port: 
+                number: 80
+  {{- end }}
+  tls:
+{{- range .Values.api.ingress.hosts }}
+  - hosts:
+{{- if .tls }}
+    - {{ .name }}
+    secretName: {{ .tlsSecret }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+---
+
+{{- if .Values.dashboard.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name:  {{ printf "%s-%s" $.Release.Name "dashboard-ingress" }} 
+  labels:
+    app:  {{ printf "%s-%s" $.Release.Name "dashboard" }} 
+    chart: {{ template "dashboard.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+  annotations:
+    {{- if .Values.dashboard.ingress.certManager }}
+    kubernetes.io/tls-acme: "true"
+    {{- end }}
+    {{- range $key, $value := .Values.dashboard.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  rules:
+  {{- range .Values.dashboard.ingress.hosts }}
+  - host: {{ .name }}
+    http:
+      paths:
+        - path: {{ default "/" .path }}
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ printf "%s-%s" $.Release.Name "dashboard-svc" }} 
+              port: 
+                number: 80
+  {{- end }}
+  tls:
+{{- range .Values.dashboard.ingress.hosts }}
+  - hosts:
+{{- if .tls }}
+    - {{ .name }}
+    secretName: {{ .tlsSecret }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+---

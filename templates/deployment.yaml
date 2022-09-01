@@ -1,0 +1,266 @@
+# 1- dashboard
+# 2- fraudcase
+
+
+
+
+#########################
+# dashboard
+#########################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-%s" .Release.Name "dashboard"}} 
+  labels:
+    app: {{ printf "%s-%s" .Release.Name "dashboard"}}
+    app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "dashboard"}}
+    helm.sh/chart: {{ include "dashboard.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.dashboard.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "dashboard"}}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ printf "%s-%s" .Release.Name "dashboard"}}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "dashboard"}}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ printf "%s-%s" .Release.Name "dashboard"}}
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.dashboard.registrySecret }}
+      containers:
+        - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
+          image: "{{ .Values.dashboard.image.repository }}:{{ .Values.global.tag }}"
+          
+          imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
+
+          env:
+          - name: API_HOST
+            value: {{ .Values.dashboard.apiHost | quote }}
+          - name: API_PORT
+            value: {{ .Values.dashboard.apiPort | quote }}
+          - name: API_SUFFIX
+            value: {{ .Values.dashboard.apiSuffix | quote }}
+          - name: API_USE_SSL
+            value: {{ .Values.dashboard.useSSL | quote }}      
+          - name: REACT_APP_ENVIRONMENT
+            value: {{ .Values.dashboard.reactAppEnvironment | quote }}      
+            
+
+          {{- if .Values.dashboard.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: {{ .Values.dashboard.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.dashboard.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.dashboard.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.dashboard.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.dashboard.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if .Values.dashboard.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: {{ .Values.dashboard.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.dashboard.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.dashboard.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.dashboard.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.dashboard.readinessProbe.failureThreshold }}
+          {{- end }}
+
+---
+
+#########################
+# api
+#########################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-%s" .Release.Name "api"}}
+  labels:
+    app: {{ printf "%s-%s" .Release.Name "api"}}
+    app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "api"}}
+    helm.sh/chart: {{ include "dashboard.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.api.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "api"}}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ printf "%s-%s" .Release.Name "api"}}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "api"}}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ printf "%s-%s" .Release.Name "api"}}
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.api.registrySecret }}
+      containers:
+        - name: {{ printf "%s-%s" .Release.Name "api"}}
+          image: "{{ .Values.api.image.repository }}:{{ .Values.global.tag }}"
+          
+          imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+          env:
+          - name: KEYCLOAK_AUTH_URL
+            value: {{ .Values.api.keycloak.authUrl | quote }}
+          - name: KEYCLOAK_CLIENT_RESOURCE
+            value: {{ .Values.api.keycloak.clientResource | quote }}
+          - name: KEYCLOAK_CLIENT_ROLE
+            value: {{ .Values.api.keycloak.clientRole | quote }}
+          - name: KEYCLOAK_REALM
+            value: {{ .Values.api.keycloak.realm | quote }}
+          
+          - name: SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: fraud-dashboard
+                key: sentry-dsn  
+
+                
+          - name: CDQ_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: fraud-dashboard
+                key: cdq-key  
+
+          - name: CORS_ALLOW_ORIGIN
+            value: {{ .Values.api.dashboardUrl | quote }}
+
+            
+          - name: DB_HOST
+            value: {{ .Values.api.db.host | quote }}
+          - name: DB_PORT 
+            value: {{ .Values.api.db.port | quote }}
+          
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: fraud-dashboard
+                key: api-db-user 
+
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: fraud-dashboard
+                key: api-db-pwd  
+
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: fraud-dashboard
+                key: api-db-name  
+          
+            
+          {{- if .Values.api.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: {{ .Values.api.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.api.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.api.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.api.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.api.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if .Values.api.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: {{ .Values.api.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.api.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.api.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.api.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.api.readinessProbe.failureThreshold }}
+          {{- end }}
+
+---
+
+#########################
+# fraudcase sync worker
+#########################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-%s" .Release.Name "fraudcase"}} 
+  labels:
+    app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
+    app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
+    helm.sh/chart: {{ include "dashboard.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.fraudcase.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
+    spec:
+      imagePullSecrets:
+      - name: {{ .Values.fraudcase.registrySecret }}
+      containers:
+        - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
+          image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.global.tag }}"
+          
+          imagePullPolicy: {{ .Values.fraudcase.image.pullPolicy }}
+
+          env:
+          - name: fraudcase_HOST
+            value: {{ .Values.fraudcase.fraudcaseHost | quote }}
+          - name: RMQ_AMQP_URL
+            value: {{ .Values.fraudcase.rmqUrl | quote }}
+          - name: RMQ_QUEUE_NAME
+            value: {{ .Values.fraudcase.rmqQueueName | quote }}
+          - name: SENTRY_DSN
+            value: {{ .Values.fraudcase.sentryDsn | quote }}
+
+          - name: CDQ_FRAUD_CASES_API_URL
+            value: {{ .Values.fraudcase.cdqApiUrl | quote }}
+          - name: CATENAX_API_KEY
+            value: {{ .Values.fraudcase.catenaxApiKey | quote }}
+          - name: CATENAX_API_URL 
+            value: {{ .Values.fraudcase.catenaxApiUrl | quote }}
+          
+
+          {{- if .Values.fraudcase.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: {{ .Values.fraudcase.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.fraudcase.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.fraudcase.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.fraudcase.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.fraudcase.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- if .Values.fraudcase.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: {{ .Values.fraudcase.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.fraudcase.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.fraudcase.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.fraudcase.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.fraudcase.readinessProbe.failureThreshold }}
