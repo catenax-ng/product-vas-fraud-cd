@@ -7,7 +7,8 @@ dashboard:
     port: 80
 
   image:
-    repository: ghcr.io/catenax-ng/product-vas-fraud-dashboard:main
+    repository: ghcr.io/catenax-ng/product-vas-fraud-dashboard
+    tag: main
   replicaCount: 1
   registrySecret: "catenax"
   apiHost: localhost
@@ -42,7 +43,8 @@ api:
   replicaCount: 1
   registrySecret: "catenax"
   image:
-    repository: ghcr.io/catenax-ng/product-vas-fraud-api:main
+    repository: ghcr.io/catenax-ng/product-vas-fraud-api
+    tag: main
   service:
     type: ClusterIP
     port: 80
