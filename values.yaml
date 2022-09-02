@@ -93,7 +93,7 @@ fraudcase:
   replicaCount: 1
   registrySecret: "catenax"
   image:
-    repository: registry.catenax-cdq.com/catenax/worker/fraud-sync
+    repository: ghcr.io/catenax-ng/product-vas-fraud-workers
     tag: main
   rmqUrl: 
   rmqQueueName: ""
