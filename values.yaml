@@ -122,7 +122,7 @@ rabbitmq:
 
 
   ingress:
-    enabled: true
+    enabled: false
     path: /
 
     pathType: ImplementationSpecific
