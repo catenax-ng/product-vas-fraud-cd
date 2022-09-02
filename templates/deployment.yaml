@@ -110,7 +110,7 @@ spec:
       - name: {{ .Values.api.registrySecret }}
       containers:
         - name: {{ printf "%s-%s" .Release.Name "api"}}
-          image: "{{ .Values.api.image.repository }}:{{ .Values.global.tag }}"
+          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
           
           imagePullPolicy: {{ .Values.api.image.pullPolicy }}
           env:
