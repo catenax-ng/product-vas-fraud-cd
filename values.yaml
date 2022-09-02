@@ -94,7 +94,7 @@ fraudcase:
   registrySecret: "catenax"
   image:
     repository: registry.catenax-cdq.com/catenax/worker/fraud-sync
-
+    tag: main
   rmqUrl: 
   rmqQueueName: ""
   sentryDsn: ""
