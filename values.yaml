@@ -210,3 +210,67 @@ postgresql-ha:
     enabled: true    
     accessMode: ReadWriteMany
     size: 8Gi
+
+airflow:
+  enabled: true
+  config:
+  AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
+  AIRFLOW__SENTRY__SENTRY_DSN: 
+  AIRFLOW__SENTRY__SENTRY_ON: "True"
+  AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+  SENTRY_ENVIRONMENT: test-env
+  extraPipPackages:
+  - apache-airflow[sentry]
+  fernetKey: 1
+  image:
+    gid: 0
+    pullPolicy: IfNotPresent
+    pullSecret: ""
+    repository: apache/airflow
+    tag: 2.1.4-python3.8
+    uid: 50000
+ 
+  users:
+  - email: peter.schenkel@cdq.com
+    firstName: admin
+    lastName: admin
+    password: admin
+    role: Admin
+    username: admin
+  webserverSecretKey: 
+  dags:
+    gitSync:
+      branch: main
+      depth: 1
+      enabled: true
+      httpSecret: gitsecret
+      httpSecretPasswordKey: password
+      httpSecretUsernameKey: username
+      image:
+        gid: 65533
+        pullPolicy: IfNotPresent
+        repository: k8s.gcr.io/git-sync/git-sync
+        tag: v3.2.2
+        uid: 65533
+      maxFailures: 5
+      repo: https://gitlab.catenax-cdq.com/catenax/dags.git
+      repoSubPath: ""
+      resources: {}
+      revision: HEAD
+      syncTimeout: 120
+      syncWait: 60
+    path: /opt/airflow/dags
+    persistence:
+      accessMode: ReadOnlyMany
+      enabled: false
+      size: 1Gi
+      storageClass: longhorn
+  externalDatabase:
+    database: airflow
+    host: localhost
+    passwordSecret: ""
+    passwordSecretKey: postgresql-password
+    port: 5432
+    properties: ""
+    type: postgres
+    user: airflow
