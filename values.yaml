@@ -66,7 +66,7 @@ api:
 
   reactAppEnvironment:
   db:
-    host: "dashboard-postgresql-ha-postgresql-headless"
+    host: "product-value-added-service-postgresql-ha-postgresql-headles"
     port: 5432
     # -> secret
  
