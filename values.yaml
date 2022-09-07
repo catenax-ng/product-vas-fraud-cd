@@ -94,7 +94,15 @@ rabbitmq:
     password: <path:value-added-service/data/dev/rmq#password>
   plugins: "rabbitmq_management rabbitmq_peer_discovery_k8s"
 
-
+  definitions:
+    queues: |-
+     {
+      "name":"catenax-fraud-sync-test",
+      "vhost":"/",
+      "durable":true,
+      "auto_delete":false,
+      "arguments":{}
+     }
   ingress:
     enabled: false
     path: /
