@@ -394,15 +394,15 @@ fraudcase:
     repository: ghcr.io/catenax-ng/product-vas-fraud-workers
     tag: main
 
-  rmqUrl: <path:value-added-service/data/dev/fraudcase#rmqUrl>
-  rmqQueueName: <path:value-added-service/data/dev/fraudcase#rmqQueueName>
-  sentryDsn: <path:value-added-service/data/dev/fraudcase#sentryDsn>
+  rmqUrl: <path:value-added-service/data/dev/worker#rmqUrl>
+  rmqQueueName: <path:value-added-service/data/dev/worker#rmqQueueName>
+  sentryDsn: <path:value-added-service/data/dev/worker#sentryDsn>
 
-  catenaxApiUrl: <path:value-added-service/data/dev/fraudcase#catenaxApiUrl>
-  catenaxApiKey: <path:value-added-service/data/dev/fraudcase#catenaxApiKey>
+  catenaxApiUrl: <path:value-added-service/data/dev/worker#catenaxApiUrl>
+  catenaxApiKey: <path:value-added-service/data/dev/worker#catenaxApiKey>
   
-  cdqApiUrl: <path:value-added-service/data/dev/fraudcase#cdqApiUrl>
-  cdqApiKey: <path:value-added-service/data/dev/fraudcase#cdqApiKey>
+  cdqApiUrl: <path:value-added-service/data/dev/worker#cdqApiUrl>
+  cdqApiKey: <path:value-added-service/data/dev/worker#cdqApiKey>
 
 
   
