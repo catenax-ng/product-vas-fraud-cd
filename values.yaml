@@ -180,10 +180,6 @@ postgresql-ha:
 
 airflow:
   enabled: true
-  config:
-    AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
-    AIRFLOW__SENTRY__SENTRY_ON: "True"
-    SENTRY_ENVIRONMENT: test-env
   extraPipPackages:
   - apache-airflow[sentry]
   fernetKey: <path:value-added-service/dev/airflow#fernetKey>
