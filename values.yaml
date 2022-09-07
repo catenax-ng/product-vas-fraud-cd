@@ -80,9 +80,9 @@ api:
   # -> secret
   
   livenessProbe:
-    enabled: false
+    enabled: true
   readinessProbe:
-    enabled: false
+    enabled: true
 
 
 rabbitmq:
@@ -233,7 +233,7 @@ dags:
     accessMode: ReadOnlyMany
     enabled: false
     size: 1Gi
-    storageClass: longhorn
+    
 externalDatabase:
   database: airflow
   host: localhost
@@ -252,18 +252,7 @@ externalRedis:
   properties: ""
 
   replicas: 1
-  resources: {}
-  safeToEvict: true
-  securityContext: {}
-  service:
-    annotations: {}
-    externalPort: 5555
-    loadBalancerIP: ""
-    loadBalancerSourceRanges: []
-    nodePort:
-      http: null
-    type: ClusterIP
-  tolerations: []
+  
 ingress:
   apiVersion: networking.k8s.io/v1
   enabled: true
@@ -305,22 +294,8 @@ logs:
     accessMode: ReadWriteMany
     enabled: false
     size: 1Gi
-    storageClass: longhorn
+    
 pgbouncer:
-  affinity: {}
-  annotations: {}
-  clientSSL:
-    caFile:
-      existingSecret: ""
-      existingSecretKey: root.crt
-    certFile:
-      existingSecret: ""
-      existingSecretKey: client.crt
-    ciphers: normal
-    keyFile:
-      existingSecret: ""
-      existingSecretKey: client.key
-    mode: prefer
   enabled: true
   image:
     gid: 1001
@@ -353,7 +328,7 @@ postgresql:
     - ReadWriteOnce
     enabled: true
     size: 8Gi
-    storageClass: longhorn
+    
   postgresqlDatabase: airflow
   postgresqlPassword: airflow
   postgresqlUsername: postgres
@@ -371,7 +346,7 @@ redis:
       - ReadWriteOnce
       enabled: false
       size: 8Gi
-      storageClass: longhorn
+ 
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
@@ -383,7 +358,7 @@ redis:
       - ReadWriteOnce
       enabled: false
       size: 8Gi
-      storageClass: longhorn
+ 
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
@@ -412,10 +387,7 @@ fraudcase:
   cdqApiUrl: <path:value-added-service/data/dev/worker#cdqApiUrl>
   cdqApiKey: <path:value-added-service/data/dev/worker#cdqApiKey>
 
-
-  
-
   livenessProbe:
-    enabled: false
+    enabled: true
   readinessProbe:
-    enabled: false
+    enabled: true
