@@ -51,7 +51,7 @@ api:
     enabled: true
     path: "/"
     service:
-      port: http
+      port: 81
     annotations: 
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
