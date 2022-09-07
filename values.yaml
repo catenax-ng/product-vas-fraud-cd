@@ -89,9 +89,9 @@ rabbitmq:
   enabled: true
   replicaCount: 1
   auth:
-    erlangCookie: <path:value-added-service/data/dev/rmq#erlangCookie>
-    username: <path:value-added-service/data/dev/rmq#username>
-    password: <path:value-added-service/data/dev/rmq#password>
+    erlangCookie: <path:value-added-service/dev/rmq#erlangCookie>
+    username: <path:value-added-service/dev/rmq#username>
+    password: <path:value-added-service/dev/rmq#password>
   plugins: "rabbitmq_management rabbitmq_peer_discovery_k8s"
 
 
@@ -125,8 +125,8 @@ postgresql-ha:
   
   postgresql:
     username: dashboard
-    password: <path:value-added-service/data/dev/postgresql#password>
-    repmgrPassword: <path:value-added-service/data/dev/postgresqlrepmgrPassword>
+    password: <path:value-added-service/dev/postgresql#password>
+    repmgrPassword: <path:value-added-service/dev/postgresqlrepmgrPassword>
     database: dashboard
     replicaCount: 2 
     updateStrategyType: RollingUpdate    
@@ -145,7 +145,7 @@ postgresql-ha:
     debug: false
 
   pgpool:
-    adminPassword: <path:value-added-service/data/dev/postgresql#password>
+    adminPassword: <path:value-added-service/dev/postgresql#password>
     srCheckDatabase: postgres
     replicaCount: 1
     securityContext:
@@ -181,7 +181,7 @@ airflow:
   enabled: true
   extraPipPackages:
   - apache-airflow[sentry]
-  fernetKey: <path:value-added-service/data/dev/airflow#fernetKey>
+  fernetKey: <path:value-added-service/dev/airflow#fernetKey>
   image:
     gid: 0
     pullPolicy: IfNotPresent
@@ -198,7 +198,7 @@ airflow:
     role: Admin
     username: admin
   
-  webserverSecretKey: <path:value-added-service/data/dev/airflow#webserverSecretKey>
+  webserverSecretKey: <path:value-added-service/dev/airflow#webserverSecretKey>
 dags:
   gitSync:
     branch: main
@@ -394,15 +394,15 @@ fraudcase:
     repository: ghcr.io/catenax-ng/product-vas-fraud-workers
     tag: main
 
-  rmqUrl: <path:value-added-service/data/dev/fraudcase#rmqUrl>
-  rmqQueueName: <path:value-added-service/data/dev/fraudcase#rmqQueueName>
-  sentryDsn: <path:value-added-service/data/dev/fraudcase#sentryDsn>
+  rmqUrl: <path:value-added-service/dev/fraudcase#rmqUrl>
+  rmqQueueName: <path:value-added-service/dev/fraudcase#rmqQueueName>
+  sentryDsn: <path:value-added-service/dev/fraudcase#sentryDsn>
 
-  catenaxApiUrl: <path:value-added-service/data/dev/fraudcase#catenaxApiUrl>
-  catenaxApiKey: <path:value-added-service/data/dev/fraudcase#catenaxApiKey>
+  catenaxApiUrl: <path:value-added-service/dev/fraudcase#catenaxApiUrl>
+  catenaxApiKey: <path:value-added-service/dev/fraudcase#catenaxApiKey>
   
-  cdqApiUrl: <path:value-added-service/data/dev/fraudcase#cdqApiUrl>
-  cdqApiKey: <path:value-added-service/data/dev/fraudcase#cdqApiKey>
+  cdqApiUrl: <path:value-added-service/dev/fraudcase#cdqApiUrl>
+  cdqApiKey: <path:value-added-service/dev/fraudcase#cdqApiKey>
 
 
   
