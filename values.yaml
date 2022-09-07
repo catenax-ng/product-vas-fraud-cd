@@ -182,38 +182,10 @@ airflow:
   enabled: true
   config:
     AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
-    AIRFLOW__SENTRY__SENTRY_DSN: <path:value-added-service/dev/airflow#sentryDsn>
     AIRFLOW__SENTRY__SENTRY_ON: "True"
-    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
     SENTRY_ENVIRONMENT: test-env
-  connections: []
-  connectionsTemplates: {}
-  connectionsUpdate: true
-  dbMigrations:
-    affinity: {}
-    annotations: {}
-    checkInterval: 300
-    enabled: true
-    nodeSelector: {}
-    podAnnotations: {}
-    podLabels: {}
-    resources: {}
-    runAsJob: false
-    safeToEvict: true
-    securityContext: {}
-    tolerations: []
-  defaultAffinity: {}
-  defaultNodeSelector: {}
-  defaultSecurityContext:
-    fsGroup: 0
-  defaultTolerations: []
-  executor: CeleryExecutor
-  extraContainers: []
-  extraEnv: []
   extraPipPackages:
   - apache-airflow[sentry]
-  extraVolumeMounts: []
-  extraVolumes: []
   fernetKey: <path:value-added-service/dev/airflow#fernetKey>
   image:
     gid: 0
@@ -222,34 +194,7 @@ airflow:
     repository: apache/airflow
     tag: 2.1.4-python3.8
     uid: 50000
-  kubernetesPodTemplate:
-    affinity: {}
-    extraPipPackages: []
-    extraVolumeMounts: []
-    extraVolumes: []
-    nodeSelector: {}
-    podAnnotations: {}
-    resources: {}
-    securityContext: {}
-    stringOverride: ""
-    tolerations: []
-  legacyCommands: false
-  localSettings:
-    existingSecret: ""
-    stringOverride: ""
-  podAnnotations: {}
-  pools: []
-  poolsUpdate: true
-  sync:
-    affinity: {}
-    annotations: {}
-    nodeSelector: {}
-    podAnnotations: {}
-    podLabels: {}
-    resources: {}
-    safeToEvict: true
-    securityContext: {}
-    tolerations: []
+  
   users:
   - email: peter.schenkel@cdq.com
     firstName: admin
@@ -257,11 +202,7 @@ airflow:
     password: admin
     role: Admin
     username: admin
-  usersTemplates: {}
-  usersUpdate: true
-  variables: []
-  variablesTemplates: {}
-  variablesUpdate: true
+  
   webserverSecretKey: <path:value-added-service/dev/airflow#webserverSecretKey>
 dags:
   gitSync:
@@ -306,36 +247,7 @@ externalRedis:
   passwordSecretKey: redis-password
   port: 6379
   properties: ""
-extraManifests: []
-flower:
-  affinity: {}
-  annotations: {}
-  basicAuthSecret: ""
-  basicAuthSecretKey: ""
-  enabled: true
-  extraPipPackages: []
-  extraVolumeMounts: []
-  extraVolumes: []
-  labels: {}
-  livenessProbe:
-    enabled: true
-    failureThreshold: 6
-    initialDelaySeconds: 10
-    periodSeconds: 10
-    timeoutSeconds: 5
-  nodeSelector: {}
-  podAnnotations: {}
-  podDisruptionBudget:
-    enabled: false
-    maxUnavailable: ""
-    minAvailable: ""
-  podLabels: {}
-  readinessProbe:
-    enabled: true
-    failureThreshold: 6
-    initialDelaySeconds: 10
-    periodSeconds: 10
-    timeoutSeconds: 5
+
   replicas: 1
   resources: {}
   safeToEvict: true
@@ -380,10 +292,7 @@ ingress:
       tls: true 
       tlsSecret: airflow.fraud-dashboard.dev.demo.catena-x.net-tls
     
-    labels: {}
-    path: ""
-    precedingPaths: []
-    succeedingPaths: []
+   
     tls:
       enabled: true
       secretName: af-tls
@@ -416,7 +325,7 @@ pgbouncer:
     repository: ghcr.io/airflow-helm/pgbouncer
     tag: 1.15.0-patch.0
     uid: 1001
-  labels: {}
+  
   livenessProbe:
     enabled: true
     failureThreshold: 3
@@ -426,38 +335,13 @@ pgbouncer:
   logConnections: 0
   logDisconnections: 0
   maxClientConnections: 100
-  nodeSelector: {}
-  podAnnotations: {}
-  podDisruptionBudget:
-    enabled: false
-    maxUnavailable: null
-    minAvailable: null
-  podLabels: {}
-  poolSize: 20
-  resources: {}
-  safeToEvict: true
-  securityContext: {}
-  serverSSL:
-    caFile:
-      existingSecret: ""
-      existingSecretKey: root.crt
-    certFile:
-      existingSecret: ""
-      existingSecretKey: server.crt
-    ciphers: normal
-    keyFile:
-      existingSecret: ""
-      existingSecretKey: server.key
-    mode: prefer
-  terminationGracePeriodSeconds: 120
-  tolerations: []
+ 
 postgresql:
   enabled: true
   existingSecret: ""
   existingSecretKey: postgresql-password
   master:
-    affinity: {}
-    nodeSelector: {}
+
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     tolerations: []
@@ -470,13 +354,7 @@ postgresql:
   postgresqlDatabase: airflow
   postgresqlPassword: airflow
   postgresqlUsername: postgres
-prometheusRule:
-  additionalLabels: {}
-  enabled: false
-  groups: []
-rbac:
-  create: true
-  events: true
+
 redis:
   cluster:
     enabled: false
@@ -485,8 +363,6 @@ redis:
   existingSecret: ""
   existingSecretPasswordKey: redis-password
   master:
-    affinity: {}
-    nodeSelector: {}
     persistence:
       accessModes:
       - ReadWriteOnce
@@ -495,12 +371,10 @@ redis:
       storageClass: longhorn
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-    resources: {}
-    tolerations: []
+
   password: airflow
   slave:
-    affinity: {}
-    nodeSelector: {}
+
     persistence:
       accessModes:
       - ReadWriteOnce
@@ -509,117 +383,15 @@ redis:
       storageClass: longhorn
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-    resources: {}
-    tolerations: []
-scheduler:
-  affinity: {}
-  annotations: {}
-  extraInitContainers: []
-  extraPipPackages: []
-  extraVolumeMounts: []
-  extraVolumes: []
-  labels: {}
-  livenessProbe:
-    enabled: true
-    failureThreshold: 5
-    initialDelaySeconds: 10
-    periodSeconds: 30
-    timeoutSeconds: 60
-  nodeSelector: {}
-  numRuns: -1
-  podAnnotations: {}
-  podDisruptionBudget:
-    enabled: false
-    maxUnavailable: ""
-    minAvailable: ""
-  podLabels: {}
-  replicas: 1
-  resources: {}
-  safeToEvict: true
-  securityContext: {}
-  tolerations: []
-serviceAccount:
-  annotations: {}
-  create: true
-  name: ""
+
+
 serviceMonitor:
   enabled: false
   interval: 30s
   path: /admin/metrics
   selector:
     prometheus: kube-prometheus
-web:
-  affinity: {}
-  annotations: {}
-  extraPipPackages: []
-  extraVolumeMounts: []
-  extraVolumes: []
-  labels: {}
-  livenessProbe:
-    enabled: true
-    failureThreshold: 6
-    initialDelaySeconds: 10
-    periodSeconds: 10
-    timeoutSeconds: 5
-  nodeSelector: {}
-  podAnnotations: {}
-  podDisruptionBudget:
-    enabled: false
-    maxUnavailable: ""
-    minAvailable: ""
-  podLabels: {}
-  readinessProbe:
-    enabled: true
-    failureThreshold: 6
-    initialDelaySeconds: 10
-    periodSeconds: 10
-    timeoutSeconds: 5
-  replicas: 1
-  resources: {}
-  safeToEvict: true
-  securityContext: {}
-  service:
-    annotations: {}
-    externalPort: 8080
-    loadBalancerIP: ""
-    loadBalancerSourceRanges: []
-    nodePort:
-      http: ""
-    sessionAffinity: None
-    sessionAffinityConfig: {}
-    type: ClusterIP
-  tolerations: []
-  webserverConfig:
-    existingSecret: ""
-    stringOverride: ""
-workers:
-  affinity: {}
-  annotations: {}
-  autoscaling:
-    enabled: false
-    maxReplicas: 2
-    metrics: []
-  celery:
-    gracefullTermination: false
-    gracefullTerminationPeriod: 600
-  enabled: true
-  extraPipPackages: []
-  extraVolumeMounts: []
-  extraVolumes: []
-  labels: {}
-  nodeSelector: {}
-  podAnnotations: {}
-  podDisruptionBudget:
-    enabled: false
-    maxUnavailable: ""
-    minAvailable: ""
-  podLabels: {}
-  replicas: 1
-  resources: {}
-  safeToEvict: true
-  securityContext: {}
-  terminationPeriod: 60
-  tolerations: []
+
 
 fraudcase:
   replicaCount: 1
