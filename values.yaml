@@ -96,15 +96,25 @@ rabbitmq:
     password: <path:value-added-service/data/dev/rmq#password>
   plugins: "rabbitmq_management rabbitmq_peer_discovery_k8s"
 
-  definitions:
-    queues: |-
-     {
-      "name":"catenax-fraud-sync-test",
-      "vhost":"/",
-      "durable":true,
-      "auto_delete":false,
-      "arguments":{}
-     }
+  extraSecrets:
+    load-definition:
+      load_definition.json: |
+        {
+          "queues": [
+          {
+            "name": "catenax-fraud-sync-test",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+          }]
+        }
+  loadDefinition:
+    enabled: true
+    existingSecret: load-definition
+  extraConfiguration: |
+    load_definitions = /app/load_definition.json
+
   ingress:
     enabled: false
     path: /
