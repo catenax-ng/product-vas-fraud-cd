@@ -243,9 +243,10 @@ spec:
 
           {{- if .Values.fraudcase.livenessProbe.enabled }}
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            exec:
+              command:
+              - cat
+              - /etc/passwd
             initialDelaySeconds: {{ .Values.fraudcase.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.fraudcase.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.fraudcase.livenessProbe.timeoutSeconds }}
@@ -254,9 +255,10 @@ spec:
           {{- end }}
           {{- if .Values.fraudcase.readinessProbe.enabled }}
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            exec:
+              command:
+              - cat
+              - /etc/passwd
             initialDelaySeconds: {{ .Values.fraudcase.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.fraudcase.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.fraudcase.readinessProbe.timeoutSeconds }}
