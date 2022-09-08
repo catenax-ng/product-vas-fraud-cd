@@ -9,6 +9,7 @@ dashboard:
   image:
     repository: ghcr.io/catenax-ng/product-vas-fraud-dashboard
     tag: main
+    pullPolicy: Always
   replicaCount: 1
   registrySecret: "catenax"
   apiHost: localhost
@@ -43,6 +44,7 @@ api:
   image:
     repository: ghcr.io/catenax-ng/product-vas-fraud-api
     tag: main
+    pullPolicy: Always
   service:
     type: ClusterIP
     port: 8080

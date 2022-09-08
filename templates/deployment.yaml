@@ -162,7 +162,9 @@ spec:
               secretKeyRef:
                 name: fraud-dashboard
                 key: api-db-name  
-          
+ 
+          - name: API_PORT
+            value: 8080         
             
           {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
