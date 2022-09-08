@@ -12,7 +12,7 @@ dashboard:
   replicaCount: 1
   registrySecret: "catenax"
   apiHost: localhost
-  apiPort: 80
+  apiPort: 8080
 
   ingress:
     enabled: true
@@ -45,13 +45,13 @@ api:
     tag: main
   service:
     type: ClusterIP
-    port: 81
+    port: 8080
 
   ingress:
     enabled: true
     path: "/"
     service:
-      port: 81
+      port: 8080
     annotations: 
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
