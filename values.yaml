@@ -107,6 +107,10 @@ rabbitmq:
             "durable": true,
             "auto_delete": false,
             "arguments": {}
+          }],
+          "vhosts": [
+          {
+            "name": "/"
           }]
         }
   loadDefinition:
