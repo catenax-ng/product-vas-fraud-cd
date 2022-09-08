@@ -111,8 +111,13 @@ rabbitmq:
           "vhosts": [
           {
             "name": "/"
-          }]
+          }],
+          "permissions":[
+          { 
+            "user": "cxadmin", "vhost": "/", "configure": ".*", "write": ".*", "read": ".*" }
+          ],
         }
+        
   loadDefinition:
     enabled: true
     existingSecret: load-definition
