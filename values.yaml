@@ -208,6 +208,7 @@ airflow:
   extraPipPackages:
   - apache-airflow[sentry]
   fernetKey: ~
+  fernetKeySecretName: ~
   image:
     gid: 0
     pullPolicy: IfNotPresent
