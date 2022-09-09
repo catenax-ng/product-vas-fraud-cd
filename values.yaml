@@ -29,7 +29,7 @@ dashboard:
     hosts:
     - name: fraud-dashboard.dev.demo.catena-x.net
       tls: true 
-      tlsSecret: fraud-dashboard.dev.demo.catena-x.net-tls
+      tlsSecret: tls-secret
 
   livenessProbe:
     enabled: false
@@ -62,7 +62,7 @@ api:
     hosts:
     - name: api.fraud-dashboard.dev.demo.catena-x.net
       tls: true 
-      tlsSecret: api.fraud-dashboard.dev.demo.catena-x.net-tls
+      tlsSecret: tls-secret
 
   reactAppEnvironment:
   db:
