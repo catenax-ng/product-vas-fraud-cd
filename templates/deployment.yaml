@@ -164,7 +164,7 @@ spec:
                 key: api-db-name  
  
           - name: API_PORT
-            value: 8080         
+            value: {{- .Values.api.service.port }}        
             
           {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
