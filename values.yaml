@@ -155,7 +155,7 @@ postgresql-ha:
   postgresql:
     username: dashboard
     password: <path:value-added-service/data/dev/postgresql#password>
-    repmgrPassword: <path:value-added-service/data/dev/postgresqlrepmgrPassword>
+    repmgrPassword: <path:value-added-service/data/dev/postgresql#repmgrPassword>
     database: dashboard
     replicaCount: 2 
     updateStrategyType: RollingUpdate    
@@ -220,12 +220,12 @@ airflow:
     uid: 50000
   
   users:
-  - email: peter.schenkel@cdq.com
+  - email: <path:value-added-service/data/dev/airflow#email>
     firstName: admin
     lastName: admin
-    password: admin
+    password: <path:value-added-service/data/dev/airflow#password>
     role: Admin
-    username: admin
+    username: <path:value-added-service/data/dev/airflow#username>
   
   webserverSecretKey: <path:value-added-service/data/dev/airflow#webserverSecretKey>
 dags:
