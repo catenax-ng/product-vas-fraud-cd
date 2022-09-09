@@ -214,7 +214,8 @@ airflow:
     repository: apache/airflow
     tag: 2.1.4-python3.8
     uid: 50000
-  migrationsWaitTimeout: 600
+  images: 
+    migrationsWaitTimeout: 600
 
   users:
   - email: <path:value-added-service/data/dev/airflow#email>
