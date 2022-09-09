@@ -217,7 +217,11 @@ airflow:
     uid: 50000
   images: 
     migrationsWaitTimeout: 600
-
+  
+  createUserJob:
+    useHelmHooks: false
+  migrateDatabaseJob:
+    useHelmHooks: false
   users:
   - email: <path:value-added-service/data/dev/airflow#email>
     firstName: admin
