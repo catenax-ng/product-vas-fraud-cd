@@ -13,7 +13,7 @@ dashboard:
   replicaCount: 1
   registrySecret: "catenax"
   apiHost: localhost
-  apiPort: 8080
+  apiPort: 80
 
   ingress:
     enabled: true
