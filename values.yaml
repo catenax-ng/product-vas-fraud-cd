@@ -207,7 +207,7 @@ airflow:
   enabled: true
   extraPipPackages:
   - apache-airflow[sentry]
-  fernetKey: <path:value-added-service/data/dev/airflow#fernetKey>
+  fernetKey: ~
   image:
     gid: 0
     pullPolicy: IfNotPresent
