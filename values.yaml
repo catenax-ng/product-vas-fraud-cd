@@ -238,7 +238,7 @@ airflow:
       enabled: true
       maxFailures: 5
       repo: https://github.com/catenax-ng/product-vas-fraud-dags.git
-      resources: {}
+      
     persistence:
       accessMode: ReadOnlyMany
       enabled: false
@@ -247,34 +247,34 @@ airflow:
 
   replicas: 1
   
-ingress:
-  apiVersion: networking.k8s.io/v1
-  enabled: true
-  flower:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    hosts:
-    - name: flower.fraud-dashboard.dev.demo.catena-x.net
-      tls: true 
-      
-    tls:
-      enabled: true
-      secretName: tls-secret
-    web:
+  ingress:
+    apiVersion: networking.k8s.io/v1
+    enabled: true
+    flower:
       annotations:
         kubernetes.io/ingress.class: nginx
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       hosts:
-      - name: airflow.fraud-dashboard.dev.demo.catena-x.net
-        tls: true   
+      - name: flower.fraud-dashboard.dev.demo.catena-x.net
+        tls: true 
+        
       tls:
         enabled: true
         secretName: tls-secret
+      web:
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        
+        hosts:
+        - name: airflow.fraud-dashboard.dev.demo.catena-x.net
+          tls: true   
+        tls:
+          enabled: true
+          secretName: tls-secret
   logs:
     path: /opt/airflow/logs
     persistence:
@@ -303,13 +303,12 @@ ingress:
   
   postgresql:
     enabled: true
-    existingSecret: ""
     existingSecretKey: postgresql-password
     master:
 
       podAnnotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-      tolerations: []
+     
     persistence:
       accessModes:
       - ReadWriteOnce
