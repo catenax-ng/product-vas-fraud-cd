@@ -270,7 +270,7 @@ airflow:
       
       hosts:
       - name: airflow.fraud-dashboard.dev.demo.catena-x.net
-        tls: true   
+        
       tls:
         enabled: true
         secretName: tls-secret
@@ -280,15 +280,7 @@ airflow:
       size: 1Gi
       
   pgbouncer:
-    enabled: true
-    image:
-      gid: 1001
-      pullPolicy: IfNotPresent
-      repository: ghcr.io/airflow-helm/pgbouncer
-      tag: 1.15.0-patch.0
-      uid: 1001
-    
-    
+    enabled: true  
     logConnections: 0
     logDisconnections: 0
     
