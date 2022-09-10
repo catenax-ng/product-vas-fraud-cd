@@ -236,21 +236,10 @@ airflow:
       branch: main
       depth: 1
       enabled: true
-      httpSecret: gitsecret
-      httpSecretPasswordKey: password
-      httpSecretUsernameKey: username
-      image:
-        gid: 65533
-        pullPolicy: IfNotPresent
-        repository: k8s.gcr.io/git-sync/git-sync
-        tag: v3.2.2
-        uid: 65533
       maxFailures: 5
       repo: https://github.com/catenax-ng/product-vas-fraud-dags.git
       resources: {}
       revision: HEAD
-      syncTimeout: 120
-      syncWait: 60
     path: /opt/airflow/dags
     persistence:
       accessMode: ReadOnlyMany
