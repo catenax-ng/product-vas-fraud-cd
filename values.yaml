@@ -312,27 +312,8 @@ airflow:
     postgresqlUsername: postgres
 
   redis:
-
     enabled: true
   
-  
-      podAnnotations:
-        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-
-    password: airflow
-    
-  
-      podAnnotations:
-        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-
-
-  serviceMonitor:
-    enabled: false
-    interval: 30s
-    path: /admin/metrics
-    selector:
-      prometheus: kube-prometheus
-
 
 fraudcase:
   replicaCount: 1
