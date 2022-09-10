@@ -239,8 +239,6 @@ airflow:
       maxFailures: 5
       repo: https://github.com/catenax-ng/product-vas-fraud-dags.git
       resources: {}
-      revision: HEAD
-    path: /opt/airflow/dags
     persistence:
       accessMode: ReadOnlyMany
       enabled: false
