@@ -289,13 +289,7 @@ airflow:
       
       podAnnotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-
-    persistence:
-      accessModes:
-      - ReadWriteOnce
-      enabled: true
-      size: 8Gi
-      storageClass: longhorn
+        
     postgresqlDatabase: airflow
     postgresqlPassword: <path:value-added-service/data/dev/airflow#pgpassword>
     postgresqlUsername: postgres     
