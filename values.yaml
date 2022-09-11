@@ -280,33 +280,14 @@ airflow:
       
   pgbouncer:
     enabled: true
-    clientSSL:
-      caFile:
-        existingSecret: ""
-        existingSecretKey: root.crt
-      certFile:
-        existingSecret: ""
-        existingSecretKey: client.crt
-      ciphers: normal
-      keyFile:
-        existingSecret: ""
-        existingSecretKey: client.key
-      mode: prefer
+    
     image:
       gid: 1001
       pullPolicy: IfNotPresent
       repository: ghcr.io/airflow-helm/pgbouncer
       tag: 1.15.0-patch.0
       uid: 1001
-    serverSSL:
-      caFile:
-        existingSecretKey: root.crt
-      certFile:
-        existingSecretKey: server.crt
-      ciphers: normal
-      keyFile:
-        existingSecretKey: server.key
-      mode: prefer
+
 
 
 
