@@ -281,16 +281,6 @@ airflow:
   pgbouncer:
     enabled: true
     
-    image:
-      gid: 1001
-      pullPolicy: IfNotPresent
-      repository: ghcr.io/airflow-helm/pgbouncer
-      tag: 1.15.0-patch.0
-      uid: 1001
-
-
-
-
   postgresql:
     enabled: true
     existingSecret: ""
