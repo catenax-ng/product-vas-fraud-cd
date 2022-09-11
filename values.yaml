@@ -289,9 +289,9 @@ airflow:
       podAnnotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
 
-    postgresqlDatabase: airflow
-    postgresqlPassword: <path:value-added-service/data/dev/airflow#pgpassword>
-    postgresqlUsername: postgres     
+    database: airflow
+    postgresPassword: <path:value-added-service/data/dev/airflow#pgpassword>
+    username: postgres     
     
 
       
