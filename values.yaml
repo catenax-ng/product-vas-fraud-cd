@@ -279,7 +279,9 @@ airflow:
       size: 1Gi
       
   pgbouncer:
-    enabled: false  
+    enabled: true
+
+
   postgresql:
     enabled: true
      
@@ -289,8 +291,7 @@ airflow:
       enabled: true
       size: 8Gi
       
-    postgresqlDatabase: airflow
-    postgresqlPassword: airflow
+    postgresqlPassword: <path:value-added-service/data/dev/airflow#password>
     postgresqlUsername: postgres
 
   redis:
