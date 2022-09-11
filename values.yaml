@@ -219,9 +219,7 @@ airflow:
   
   createUserJob:
     useHelmHooks: false
-  migrateDatabaseJob:
-    useHelmHooks: false
-  defaultUser:
+    defaultUser:
     enabled: true
     role: Admin
     username: <path:value-added-service/data/dev/airflow#username>
@@ -229,6 +227,8 @@ airflow:
     firstName: admin
     lastName: user
     password: <path:value-added-service/data/dev/airflow#password>
+  migrateDatabaseJob:
+    useHelmHooks: false
 
   
   webserverSecretKey: <path:value-added-service/data/dev/airflow#webserverSecretKey>
@@ -295,10 +295,6 @@ airflow:
     postgresPassword: <path:value-added-service/data/dev/airflow#pgpassword>
     username: postgres     
     
-
-      
-    
-
 
   redis:
     enabled: true
