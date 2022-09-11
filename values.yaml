@@ -208,7 +208,6 @@ airflow:
   extraPipPackages:
   - apache-airflow[sentry]
   fernetKey: <path:value-added-service/data/dev/airflow#fernetKey>
-  fernetKeySecretName: "product-value-added-service-fernet-key"
   image:
     gid: 0
     pullPolicy: IfNotPresent
