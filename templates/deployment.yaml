@@ -169,8 +169,8 @@ spec:
           {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              path: /
-              port: 8080
+              path: https://api.catenax-cdq.com/public/alive
+              port: 443
             initialDelaySeconds: {{ .Values.api.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.api.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.api.livenessProbe.timeoutSeconds }}
@@ -180,8 +180,8 @@ spec:
           {{- if .Values.api.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
-              path: /
-              port: 8080
+              path: https://api.catenax-cdq.com/public/ready
+              port: 443
             initialDelaySeconds: {{ .Values.api.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.api.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.api.readinessProbe.timeoutSeconds }}
