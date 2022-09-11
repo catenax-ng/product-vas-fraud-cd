@@ -298,7 +298,6 @@ airflow:
       repository: ghcr.io/airflow-helm/pgbouncer
       tag: 1.15.0-patch.0
       uid: 1001
-    safeToEvict: true
     serverSSL:
       caFile:
         existingSecretKey: root.crt
@@ -308,7 +307,7 @@ airflow:
       keyFile:
         existingSecretKey: server.key
       mode: prefer
-    terminationGracePeriodSeconds: 120
+
 
 
   postgresql:
