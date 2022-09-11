@@ -221,20 +221,22 @@ airflow:
     useHelmHooks: false
   migrateDatabaseJob:
     useHelmHooks: false
-  users:
-  - email: <path:value-added-service/data/dev/airflow#email>
-    firstName: admin
-    lastName: admin
-    password: <path:value-added-service/data/dev/airflow#password>
+  defaultUser:
+    enabled: true
     role: Admin
     username: <path:value-added-service/data/dev/airflow#username>
+    email: <path:value-added-service/data/dev/airflow#email>
+    firstName: admin
+    lastName: user
+    password: <path:value-added-service/data/dev/airflow#password>
+
   
   webserverSecretKey: <path:value-added-service/data/dev/airflow#webserverSecretKey>
   dags:
     gitSync:
+      enabled: true
       branch: main
       depth: 1
-      enabled: true
       maxFailures: 5
       repo: https://github.com/catenax-ng/product-vas-fraud-dags.git
       
@@ -242,7 +244,7 @@ airflow:
       accessMode: ReadOnlyMany
       enabled: false
       size: 1Gi
-      
+    path: /opt/airflow/dags  
 
   replicas: 1
   
