@@ -280,8 +280,6 @@ airflow:
       
   pgbouncer:
     enabled: true
-    affinity: {}
-    annotations: {}
     clientSSL:
       caFile:
         existingSecret: ""
@@ -300,27 +298,15 @@ airflow:
       repository: ghcr.io/airflow-helm/pgbouncer
       tag: 1.15.0-patch.0
       uid: 1001
-    labels: {}
-    livenessProbe:
-      enabled: true
-      failureThreshold: 3
-      initialDelaySeconds: 5
-      periodSeconds: 30
-      timeoutSeconds: 60
+
+  
     logConnections: 0
     logDisconnections: 0
     maxClientConnections: 100
-    nodeSelector: {}
-    podAnnotations: {}
-    podDisruptionBudget:
-      enabled: false
-      maxUnavailable: null
-      minAvailable: null
-    podLabels: {}
-    poolSize: 20
-    resources: {}
+     poolSize: 20
+ 
     safeToEvict: true
-    securityContext: {}
+
     serverSSL:
       caFile:
         existingSecret: ""
@@ -334,18 +320,17 @@ airflow:
         existingSecretKey: server.key
       mode: prefer
     terminationGracePeriodSeconds: 120
-    tolerations: []
+
 
   postgresql:
     enabled: true
     existingSecret: ""
     existingSecretKey: postgresql-password
     master:
-      affinity: {}
-      nodeSelector: {}
+      
       podAnnotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-      tolerations: []
+
     persistence:
       accessModes:
       - ReadWriteOnce
@@ -356,11 +341,7 @@ airflow:
     postgresqlPassword: <path:value-added-service/data/dev/airflow#pgpassword>
     postgresqlUsername: postgres     
     
-    persistence:
-      accessModes:
-      - ReadWriteOnce
-      enabled: true
-      size: 8Gi
+
       
     
 
