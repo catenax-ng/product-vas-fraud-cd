@@ -244,7 +244,7 @@ airflow:
       accessMode: ReadOnlyMany
       enabled: false
       size: 1Gi
-    path: /opt/airflow/dags  
+    subpath: /opt/airflow/dags  
 
   replicas: 1
   
