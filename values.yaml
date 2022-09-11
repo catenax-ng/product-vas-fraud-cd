@@ -219,14 +219,7 @@ airflow:
   
   createUserJob:
     useHelmHooks: false
-    defaultUser:
-      enabled: true
-      role: Admin
-      username: <path:value-added-service/data/dev/airflow#username>
-      email: <path:value-added-service/data/dev/airflow#email>
-      firstName: user
-      lastName: user
-      password: <path:value-added-service/data/dev/airflow#password>
+
   migrateDatabaseJob:
     useHelmHooks: false
 
@@ -247,34 +240,45 @@ airflow:
     
 
   replicas: 1
-  
-  ingress:
-    apiVersion: networking.k8s.io/v1
-    enabled: true
-    flower:
-      annotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      hosts:
-      - name: flower.fraud-dashboard.dev.demo.catena-x.net
-        
-      tls:
+  webserver:
+    defaultUser:
+      enabled: true
+      role: Admin
+      username: <path:value-added-service/data/dev/airflow#username>
+      email: <path:value-added-service/data/dev/airflow#email>
+      firstName: user
+      lastName: user
+      password: <path:value-added-service/data/dev/airflow#password>
+
+    ingress:
+      apiVersion: networking.k8s.io/v1
+      enabled: true
+      flower:
         enabled: true
-        secretName: tls-secret
-    web:
-      annotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      
-      hosts:
-      - name: airflow.fraud-dashboard.dev.demo.catena-x.net
-        
-      tls:
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        hosts:
+        - name: flower.fraud-dashboard.dev.demo.catena-x.net
+          
+        tls:
+          enabled: true
+          secretName: tls-secret
+      web:
         enabled: true
-        secretName: tls-secret
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        
+        hosts:
+        - name: airflow.fraud-dashboard.dev.demo.catena-x.net
+          
+        tls:
+          enabled: true
+          secretName: tls-secret
   logs:    
     persistence:      
       enabled: false
