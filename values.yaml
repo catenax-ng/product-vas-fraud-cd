@@ -220,13 +220,13 @@ airflow:
   createUserJob:
     useHelmHooks: false
     defaultUser:
-    enabled: true
-    role: Admin
-    username: <path:value-added-service/data/dev/airflow#username>
-    email: <path:value-added-service/data/dev/airflow#email>
-    firstName: admin
-    lastName: user
-    password: <path:value-added-service/data/dev/airflow#password>
+      enabled: true
+      role: Admin
+      username: <path:value-added-service/data/dev/airflow#username>
+      email: <path:value-added-service/data/dev/airflow#email>
+      firstName: user
+      lastName: user
+      password: <path:value-added-service/data/dev/airflow#password>
   migrateDatabaseJob:
     useHelmHooks: false
 
