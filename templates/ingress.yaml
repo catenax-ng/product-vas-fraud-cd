@@ -29,7 +29,7 @@ spec:
             service:
               name: {{ printf "%s-%s" $.Release.Name "api-svc" }} 
               port: 
-                number: 80
+                number: 8080
   {{- end }}
   tls:
 {{- range .Values.api.ingress.hosts }}
