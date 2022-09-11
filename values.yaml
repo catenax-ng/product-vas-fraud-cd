@@ -298,25 +298,14 @@ airflow:
       repository: ghcr.io/airflow-helm/pgbouncer
       tag: 1.15.0-patch.0
       uid: 1001
-
-  
-    logConnections: 0
-    logDisconnections: 0
-    maxClientConnections: 100
-     poolSize: 20
- 
     safeToEvict: true
-
     serverSSL:
       caFile:
-        existingSecret: ""
         existingSecretKey: root.crt
       certFile:
-        existingSecret: ""
         existingSecretKey: server.crt
       ciphers: normal
       keyFile:
-        existingSecret: ""
         existingSecretKey: server.key
       mode: prefer
     terminationGracePeriodSeconds: 120
