@@ -280,7 +280,8 @@ airflow:
       
   pgbouncer:
     enabled: true
-    
+    serviceAccount:
+      create: false
   postgresql:
     enabled: true
     master:
