@@ -280,7 +280,61 @@ airflow:
       
   pgbouncer:
     enabled: true
-
+    affinity: {}
+    annotations: {}
+    clientSSL:
+      caFile:
+        existingSecret: ""
+        existingSecretKey: root.crt
+      certFile:
+        existingSecret: ""
+        existingSecretKey: client.crt
+      ciphers: normal
+      keyFile:
+        existingSecret: ""
+        existingSecretKey: client.key
+      mode: prefer
+    image:
+      gid: 1001
+      pullPolicy: IfNotPresent
+      repository: ghcr.io/airflow-helm/pgbouncer
+      tag: 1.15.0-patch.0
+      uid: 1001
+    labels: {}
+    livenessProbe:
+      enabled: true
+      failureThreshold: 3
+      initialDelaySeconds: 5
+      periodSeconds: 30
+      timeoutSeconds: 60
+    logConnections: 0
+    logDisconnections: 0
+    maxClientConnections: 100
+    nodeSelector: {}
+    podAnnotations: {}
+    podDisruptionBudget:
+      enabled: false
+      maxUnavailable: null
+      minAvailable: null
+    podLabels: {}
+    poolSize: 20
+    resources: {}
+    safeToEvict: true
+    securityContext: {}
+    serverSSL:
+      caFile:
+        existingSecret: ""
+        existingSecretKey: root.crt
+      certFile:
+        existingSecret: ""
+        existingSecretKey: server.crt
+      ciphers: normal
+      keyFile:
+        existingSecret: ""
+        existingSecretKey: server.key
+      mode: prefer
+    terminationGracePeriodSeconds: 120
+    tolerations: []
 
   postgresql:
     enabled: true
