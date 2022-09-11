@@ -51,6 +51,8 @@ spec:
             value: {{ .Values.dashboard.useSSL | quote }}      
           - name: REACT_APP_ENVIRONMENT
             value: {{ .Values.dashboard.reactAppEnvironment | quote }}      
+          - name: REACT_APP_API_URI
+            value: {{ .Values.dashboard.apiUri | quote }}
             
 
           {{- if .Values.dashboard.livenessProbe.enabled }}
