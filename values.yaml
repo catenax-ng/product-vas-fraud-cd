@@ -207,8 +207,7 @@ airflow:
   enabled: true
   extraPipPackages:
   - apache-airflow[sentry]
-  fernetKey: ~
-  fernetKeySecretName: ~
+  fernetKey: <path:value-added-service/data/dev/airflow#fernetKey>
   image:
     gid: 0
     pullPolicy: IfNotPresent
@@ -280,18 +279,9 @@ airflow:
       size: 1Gi
       
   pgbouncer:
-    enabled: true  
-    logConnections: 0
-    logDisconnections: 0
-    
-  
+    enabled: false  
   postgresql:
     enabled: true
-    existingSecretKey: postgresql-password
-    master:
-
-      podAnnotations:
-        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
      
     persistence:
       accessModes:
