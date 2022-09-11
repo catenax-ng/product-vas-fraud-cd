@@ -284,15 +284,32 @@ airflow:
 
   postgresql:
     enabled: true
-     
+    existingSecret: ""
+    existingSecretKey: postgresql-password
+    master:
+      affinity: {}
+      nodeSelector: {}
+      podAnnotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      tolerations: []
+    persistence:
+      accessModes:
+      - ReadWriteOnce
+      enabled: true
+      size: 8Gi
+      storageClass: longhorn
+    postgresqlDatabase: airflow
+    postgresqlPassword: <path:value-added-service/data/dev/airflow#pgpassword>
+    postgresqlUsername: postgres     
+    
     persistence:
       accessModes:
       - ReadWriteOnce
       enabled: true
       size: 8Gi
       
-    postgresqlPassword: <path:value-added-service/data/dev/airflow#password>
-    postgresqlUsername: postgres
+    
+
 
   redis:
     enabled: true
