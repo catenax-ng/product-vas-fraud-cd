@@ -239,12 +239,12 @@ airflow:
       depth: 1
       maxFailures: 5
       repo: https://github.com/catenax-ng/product-vas-fraud-dags.git
-      
+      subPath: /opt/airflow/dags   
     persistence:
       accessMode: ReadOnlyMany
       enabled: false
       size: 1Gi
-    subpath: /opt/airflow/dags  
+    
 
   replicas: 1
   
