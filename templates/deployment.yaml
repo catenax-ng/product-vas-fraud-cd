@@ -164,7 +164,7 @@ spec:
                 key: api-db-name  
  
           - name: API_PORT
-            value: {{ .Values.api.service.port }}        
+            value: {{ .Values.api.service.port | quote }}        
             
           {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
