@@ -226,22 +226,16 @@ airflow:
     useHelmHooks: false
 
   
-  webserverSecretKey: <path:value-added-service/data/dev/airflow#webserverSecretKey>
+  webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
   dags:
     gitSync:
-      image:
-        repository: k8s.gcr.io/git-sync/git-sync
-        tag: v3.5.0
-        pullPolicy: IfNotPresent
-        uid: 65533
-        gid: 65533
       enabled: true
       branch: main
       rev: HEAD
       depth: 1
       maxFailures: 5
       credentialsSecret: git-credentials
-      repo: https://github.com/catenax-ng/product-vas-fraud-dags.git
+      repo: "https://github.com/catenax-ng/product-vas-fraud-dags.git"
 
     persistence:
       accessMode: ReadOnlyMany
