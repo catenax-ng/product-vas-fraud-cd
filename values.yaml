@@ -12,7 +12,7 @@ dashboard:
     pullPolicy: Always
   replicaCount: 1
   registrySecret: "catenax"
-  apiHost: api.fraud-dashboard.dev.demo.catena-x.net
+  apiHost: api-fraud-dashboard.dev.demo.catena-x.net
   apiPort: 8080
 
   ingress:
