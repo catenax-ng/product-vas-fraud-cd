@@ -1,0 +1,175 @@
+airflow:
+  airflow:
+    ## if we use legacy 1.10 airflow commands
+    ##
+    legacyCommands: false
+
+    ## configs for the airflow container image
+    ##
+    image:
+      repository: apache/airflow
+      tag: 2.2.5-python3.8
+      pullPolicy: IfNotPresent
+      pullSecret: ""
+      uid: 50000
+      gid: 0
+
+    
+    executor: CeleryExecutor
+    fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
+    webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
+
+
+    config: 
+      AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
+      AIRFLOW__SENTRY__SENTRY_ON: "True"
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+      SENTRY_ENVIRONMENT: test-env      
+
+    users:
+      - username: admin
+        password: admin
+        role: Admin
+        email: admin@example.com
+        firstName: admin
+        lastName: admin
+
+    usersUpdate: true
+
+    connectionsUpdate: true
+    variablesUpdate: true
+    poolsUpdate: true
+    defaultSecurityContext:
+      ## sets the filesystem owner group of files/folders in mounted volumes
+      ## this does NOT give root permissions to Pods, only the "root" group
+      fsGroup: 0
+
+
+    extraPipPackages: 
+    - apache-airflow[sentry]
+    protectedPipPackages:
+      - "apache-airflow"
+
+
+  ###################################
+  ## COMPONENT | Airflow Webserver
+  ###################################
+  web:
+    service:
+      sessionAffinity: "None"
+      type: ClusterIP
+      externalPort: 8080
+      loadBalancerIP: ""
+      nodePort:
+        http: ""
+
+   
+
+
+  workers:
+    enabled: true
+
+  
+  triggerer:
+    enabled: true
+
+
+  
+  flower:   
+    enabled: true
+
+  
+  logs:
+    
+    path: /opt/airflow/logs
+
+
+  ###################################
+  ## CONFIG | Airflow DAGs
+  ###################################
+  dags:
+    
+    path: /opt/airflow/dags
+    persistence:
+      enabled: true
+      size: 1Gi
+    gitSync:
+      enabled: true
+      image:
+        repository: k8s.gcr.io/git-sync/git-sync
+        tag: v3.5.0
+        pullPolicy: IfNotPresent
+        uid: 65533
+        gid: 65533
+      repo: "https://github.com/catenax-ng/product-vas-fraud-dags.git"     
+      branch: main
+
+      revision: HEAD
+
+
+  ingress:
+
+    enabled: true
+    apiVersion: networking.k8s.io/v1
+    web:
+      annotations: 
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/proxy-body-size: 10m
+      
+      path: ""
+      host: "airflow-fraud-dashboard.dev.demo.catena-x.net"
+
+      ingressClassName: "nginx"
+      tls:
+        enabled: true
+        secretName: "tls-secret"
+
+    flower:
+
+      annotations: 
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/proxy-body-size: 10m
+     
+      path: ""
+      host: "flower-fraud-dashboard.dev.demo.catena-x.net"
+      ingressClassName: "nginx"
+      tls:
+        enabled: true
+        secretName: "tls-secret"
+
+  rbac:
+    create: true
+    events: true
+
+  serviceAccount:
+    create: true
+
+  pgbouncer:
+    enabled: true
+    image:
+      repository: ghcr.io/airflow-helm/pgbouncer
+      tag: 1.17.0-patch.0
+      pullPolicy: IfNotPresent
+      uid: 1001
+      gid: 1001
+
+  postgresql:
+    enabled: true
+    database: airflow
+    postgresPassword: <path:value-added-service/data/dev/airflow#pgpassword>
+    username: postgres  
+
+    persistence:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      size: 8Gi
+    
+  redis:
+    enabled: true
+    password: airflow
+
