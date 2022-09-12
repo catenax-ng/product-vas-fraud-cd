@@ -311,7 +311,6 @@ airflow:
       path: ""
       host: "airflow-fraud-dashboard.dev.demo.catena-x.net"
 
-      ingressClassName: "nginx"
       tls:
         enabled: true
         secretName: "tls-secret"
@@ -326,7 +325,6 @@ airflow:
      
       path: ""
       host: "flower-fraud-dashboard.dev.demo.catena-x.net"
-      ingressClassName: "nginx"
       tls:
         enabled: true
         secretName: "tls-secret"
