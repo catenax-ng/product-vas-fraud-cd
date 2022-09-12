@@ -351,8 +351,8 @@ fraudcase:
   rmqQueueName: <path:value-added-service/data/dev/worker#rmqQueueName>
   sentryDsn: <path:value-added-service/data/dev/worker#sentryDsn>
 
-  catenaxApiUrl: <path:value-added-service/data/dev/worker#catenaxApiUrl>
-  catenaxApiKey: <path:value-added-service/data/dev/worker#catenaxApiKey>
+  catenaxApiUrl: "<path:value-added-service/data/dev/worker#catenaxApiUrl>"
+  catenaxApiKey: "<path:value-added-service/data/dev/worker#catenaxApiKey>"
   
   cdqApiUrl: <path:value-added-service/data/dev/worker#cdqApiUrl>
   cdqApiKey: <path:value-added-service/data/dev/worker#cdqApiKey>
