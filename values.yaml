@@ -53,6 +53,7 @@ api:
     path: "/"
     service:
       port: 8080
+    certManager: false
     annotations: 
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -60,7 +61,7 @@ api:
       nginx.ingress.kubernetes.io/proxy-body-size: 10m
     paths: /
     hosts:
-    - name: api.fraud-dashboard.dev.demo.catena-x.net
+    - name: api-fraud-dashboard.dev.demo.catena-x.net
       tls: true 
       tlsSecret: tls-secret
 
@@ -264,7 +265,7 @@ airflow:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       hosts:
-      - name: flower.fraud-dashboard.dev.demo.catena-x.net
+      - name: flower-fraud-dashboard.dev.demo.catena-x.net
         
       tls:
         enabled: true
@@ -277,7 +278,7 @@ airflow:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
       
       hosts:
-      - name: airflow.fraud-dashboard.dev.demo.catena-x.net
+      - name: airflow-fraud-dashboard.dev.demo.catena-x.net
         
       tls:
         enabled: true
