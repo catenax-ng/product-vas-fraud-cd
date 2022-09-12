@@ -229,10 +229,13 @@ airflow:
     gitSync:
       enabled: true
       branch: main
+      rev: HEAD
       depth: 1
       maxFailures: 5
+      credentialsSecret: git-credentials
       repo: https://github.com/catenax-ng/product-vas-fraud-dags.git
-      subPath: /opt/airflow/dags   
+      subPath: /opt/airflow/dags
+
     persistence:
       accessMode: ReadOnlyMany
       enabled: false
