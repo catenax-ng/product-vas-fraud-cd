@@ -207,6 +207,11 @@ postgresql-ha:
 
 airflow:
   enabled: true
+  config:
+    AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
+    AIRFLOW__SENTRY__SENTRY_ON: "True"
+    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+    SENTRY_ENVIRONMENT: test-env  
   extraPipPackages:
   - apache-airflow[sentry]
   fernetKey: <path:value-added-service/data/dev/airflow#fernetKey>
@@ -228,11 +233,7 @@ airflow:
 
   
   webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
-  config:
-    AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
-    AIRFLOW__SENTRY__SENTRY_ON: "True"
-    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
-    SENTRY_ENVIRONMENT: test-env  
+
   dags:
     gitSync:
       enabled: true
