@@ -142,9 +142,9 @@ rabbitmq:
       nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "20"
       nginx.ingress.kubernetes.io/proxy-read-timeout: "4000"
       nginx.ingress.kubernetes.io/proxy-send-timeout: "4000"
-      tls:
-        enabled: true
-        secretName: "tls-secret"
+    tls:
+      enabled: true
+      secretName: "tls-secret"
     
 postgresql-ha:
   
