@@ -125,11 +125,11 @@ rabbitmq:
     load_definitions = /app/load_definition.json
 
   ingress:
-    enabled: false
+    enabled: true
     path: /
 
     pathType: ImplementationSpecific
-    hostname: rabbitmq.catenax-cdq.com
+    hostname: rabbitmq-fraud-dashboard.dev.demo.catena-x.net
     annotations: 
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -142,7 +142,9 @@ rabbitmq:
       nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "20"
       nginx.ingress.kubernetes.io/proxy-read-timeout: "4000"
       nginx.ingress.kubernetes.io/proxy-send-timeout: "4000"
-    tls: true
+      tls:
+        enabled: true
+        secretName: "tls-secret"
     
 postgresql-ha:
   
@@ -215,10 +217,10 @@ airflow:
  
 
   users:
-    - username: admin
-      password: admin
+    - username: <path:value-added-service/data/dev/rmq#username>
+      password: <path:value-added-service/data/dev/rmq#password>
       role: Admin
-      email: admin@example.com
+      email: path:value-added-service/data/dev/airflow#email>
       firstName: admin
       lastName: admin
 
