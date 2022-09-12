@@ -354,8 +354,8 @@ fraudcase:
   catenaxApiUrl: "<path:value-added-service/data/dev/worker#catenaxApiUrl>"
   catenaxApiKey: "<path:value-added-service/data/dev/worker#catenaxApiKey>"
   
-  cdqApiUrl: <path:value-added-service/data/dev/worker#cdqApiUrl>
-  cdqApiKey: <path:value-added-service/data/dev/worker#cdqApiKey>
+  cdqApiUrl: "<path:value-added-service/data/dev/worker#cdqApiUrl>"
+  cdqApiKey: "<path:value-added-service/data/dev/worker#cdqApiKey>"
 
   livenessProbe:
     enabled: true
