@@ -265,7 +265,7 @@ airflow:
     
  
     persistence:
-      enabled: true
+      enabled: false
       size: 1Gi
     gitSync:
       enabled: true      
