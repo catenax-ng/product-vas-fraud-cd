@@ -271,49 +271,31 @@ airflow:
       nodePort:
         http: ""
 
-   
 
-
-  workers:
-    enabled: true
-
-  
   triggerer:
     enabled: true
 
-
-  
   flower:   
     enabled: true
-
-  
-  logs:
-    
-    path: /opt/airflow/logs
-
 
   ###################################
   ## CONFIG | Airflow DAGs
   ###################################
   dags:
     
-    path: /opt/airflow/dags
+ 
     persistence:
       enabled: true
       size: 1Gi
     gitSync:
-      enabled: true
-      image:
-        repository: k8s.gcr.io/git-sync/git-sync
-        tag: v3.5.0
-        pullPolicy: IfNotPresent
-        uid: 65533
-        gid: 65533
+      enabled: true      
       repo: "https://github.com/catenax-ng/product-vas-fraud-dags.git"     
       branch: main
 
-      revision: HEAD
-
+  createUserJob:
+    useHelmHooks: false
+  migrateDatabaseJob:
+    useHelmHooks: false
 
   ingress:
 
@@ -358,13 +340,7 @@ airflow:
 
   pgbouncer:
     enabled: true
-    image:
-      repository: ghcr.io/airflow-helm/pgbouncer
-      tag: 1.17.0-patch.0
-      pullPolicy: IfNotPresent
-      uid: 1001
-      gid: 1001
-
+   
   postgresql:
     enabled: true
     database: airflow
