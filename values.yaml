@@ -218,11 +218,7 @@ airflow:
     uid: 50000
   images: 
     migrationsWaitTimeout: 600
-  config:
-    AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
-    AIRFLOW__SENTRY__SENTRY_ON: "True"
-    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
-    SENTRY_ENVIRONMENT: test-env
+
 
   createUserJob:
     useHelmHooks: false
@@ -232,6 +228,11 @@ airflow:
 
   
   webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
+  config:
+    AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
+    AIRFLOW__SENTRY__SENTRY_ON: "True"
+    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+    SENTRY_ENVIRONMENT: test-env  
   dags:
     gitSync:
       enabled: true
