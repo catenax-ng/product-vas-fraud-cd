@@ -207,56 +207,41 @@ postgresql-ha:
 
 airflow:
 
-  airflow:
-    ## if we use legacy 1.10 airflow commands
-    ##
-    legacyCommands: false
 
-    ## configs for the airflow container image
-    ##
-    image:
-      repository: apache/airflow
-      tag: 2.2.5-python3.8
-      pullPolicy: IfNotPresent
-      pullSecret: ""
-      uid: 50000
-      gid: 0
+  legacyCommands: false  
+  executor: CeleryExecutor
+  fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
+  webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
 
-    
-    executor: CeleryExecutor
-    fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
-    webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
+  config: 
+    AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
+    AIRFLOW__SENTRY__SENTRY_ON: "True"
+    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+    SENTRY_ENVIRONMENT: test-env      
 
+  users:
+    - username: admin
+      password: admin
+      role: Admin
+      email: admin@example.com
+      firstName: admin
+      lastName: admin
 
-    config: 
-      AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
-      AIRFLOW__SENTRY__SENTRY_ON: "True"
-      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
-      SENTRY_ENVIRONMENT: test-env      
+  usersUpdate: true
 
-    users:
-      - username: admin
-        password: admin
-        role: Admin
-        email: admin@example.com
-        firstName: admin
-        lastName: admin
-
-    usersUpdate: true
-
-    connectionsUpdate: true
-    variablesUpdate: true
-    poolsUpdate: true
-    defaultSecurityContext:
-      ## sets the filesystem owner group of files/folders in mounted volumes
-      ## this does NOT give root permissions to Pods, only the "root" group
-      fsGroup: 0
+  connectionsUpdate: true
+  variablesUpdate: true
+  poolsUpdate: true
+  defaultSecurityContext:
+    ## sets the filesystem owner group of files/folders in mounted volumes
+    ## this does NOT give root permissions to Pods, only the "root" group
+    fsGroup: 0
 
 
-    extraPipPackages: 
-    - apache-airflow[sentry]
-    protectedPipPackages:
-      - "apache-airflow"
+  extraPipPackages: 
+  - apache-airflow[sentry]
+  protectedPipPackages:
+    - "apache-airflow"
 
 
   ###################################
