@@ -298,9 +298,9 @@ airflow:
     useHelmHooks: false
 
   ingress:
-
     enabled: true
-    apiVersion: networking.k8s.io/v1
+    apiVersion: "networking.k8s.io/v1"
+    
     web:
       annotations: 
         kubernetes.io/ingress.class: nginx
