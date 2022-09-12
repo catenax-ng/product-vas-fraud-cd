@@ -255,6 +255,7 @@ airflow:
       password: <path:value-added-service/data/dev/airflow#password>
 
   ingress:
+    apiVersion: "networking.k8s.io/v1"
     enabled: true
     flower:
       enabled: true
