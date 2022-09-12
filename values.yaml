@@ -298,8 +298,8 @@ airflow:
     useHelmHooks: false
 
   ingress:
+    apiVersion: networking.k8s.io/v1
     enabled: true
-    apiVersion: "networking.k8s.io/v1"
     
     web:
       annotations: 
@@ -308,8 +308,7 @@ airflow:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: 10m
       
-      path: ""
-      host: "airflow-fraud-dashboard.dev.demo.catena-x.net"
+      host: airflow-fraud-dashboard.dev.demo.catena-x.net
 
       tls:
         enabled: true
@@ -323,8 +322,7 @@ airflow:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: 10m
      
-      path: ""
-      host: "flower-fraud-dashboard.dev.demo.catena-x.net"
+      host: flower-fraud-dashboard.dev.demo.catena-x.net
       tls:
         enabled: true
         secretName: "tls-secret"
