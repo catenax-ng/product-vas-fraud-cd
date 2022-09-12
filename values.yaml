@@ -212,12 +212,7 @@ airflow:
   executor: CeleryExecutor
   fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
   webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
-
-  config: 
-    AIRFLOW__CORE__HIDE_SENSITIVE_VAR_CONN_FIELDS: "False"
-    AIRFLOW__SENTRY__SENTRY_ON: "True"
-    AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
-    SENTRY_ENVIRONMENT: test-env      
+ 
 
   users:
     - username: admin
