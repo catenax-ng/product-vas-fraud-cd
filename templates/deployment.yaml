@@ -136,7 +136,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: fraud-dashboard
-                key: cdq-key  
+                key: cdq-key
 
           - name: CORS_ALLOW_ORIGIN
             value: {{ .Values.api.dashboardUrl | quote }}
