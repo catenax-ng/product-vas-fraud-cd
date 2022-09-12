@@ -14,5 +14,5 @@ dependencies:
   repository: https://charts.bitnami.com/bitnami
 - name: airflow 
   condition: airflow.enabled
-  repository: https://airflow.apache.org
-  version: 1.6.x
+  repository: https://airflow-helm.github.io/charts
+  version: 8.6.1
