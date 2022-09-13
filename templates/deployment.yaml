@@ -53,7 +53,8 @@ spec:
             value: {{ .Values.dashboard.reactAppEnvironment | quote }}      
           - name: REACT_APP_API_URI
             value: {{ .Values.dashboard.apiHost | quote }}
-            
+          - name: REACT_APP_API_AUTH_URI
+            value: {{ .Values.api.keycloak.authUrl | quote }}            
 
           {{- if .Values.dashboard.livenessProbe.enabled }}
           livenessProbe:
@@ -116,6 +117,8 @@ spec:
           
           imagePullPolicy: {{ .Values.api.image.pullPolicy }}
           env:
+          #ToDo
+          
           - name: KEYCLOAK_AUTH_URL
             value: {{ .Values.api.keycloak.authUrl | quote }}
           - name: KEYCLOAK_CLIENT_RESOURCE
