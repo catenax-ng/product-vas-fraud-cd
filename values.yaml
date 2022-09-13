@@ -75,7 +75,7 @@ api:
   keycloak:
     authUrl: "https://centralidp.dev.demo.catena-x.net/auth/realms/CX-Central/protocol/openid-connect/auth"
     #authUrl: https://keycloak.catenax-cdq.com/auth/
-    clientResource: "Cl9-CDQ-Fraud"
+    clientResource: "Cl17-CDQ-Fraud"
     clientRole: "fraud_app_user"
     realm: "CX-Central"
   # -> secret
