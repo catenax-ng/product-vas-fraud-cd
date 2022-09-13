@@ -55,7 +55,8 @@ spec:
             value: {{ .Values.dashboard.apiHost | quote }}
           - name: REACT_APP_API_AUTH_URI
             value: {{ .Values.api.keycloak.authUrl | quote }}            
-          - name: REACT_APP_AUTH_CLIENT_ID: "Cl17-CDQ-Fraud"
+          - name: REACT_APP_AUTH_CLIENT_ID
+            value: "Cl17-CDQ-Fraud"
 
           {{- if .Values.dashboard.livenessProbe.enabled }}
           livenessProbe:
