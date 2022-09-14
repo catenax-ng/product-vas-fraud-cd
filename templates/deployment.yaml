@@ -36,9 +36,10 @@ spec:
         allowPrivilegeEscalation: false    
       imagePullSecrets:
       - name: {{ .Values.dashboard.registrySecret }}
-      containers:
-          - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
-          image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"
+      containers:   
+        - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
+          image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"          
+          imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
 
           imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
 
