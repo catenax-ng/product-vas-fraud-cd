@@ -36,8 +36,7 @@ spec:
         allowPrivilegeEscalation: false    
       imagePullSecrets:
       - name: {{ .Values.dashboard.registrySecret }}
-        containers:
-
+      containers:
           - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
           image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"
 
@@ -118,14 +117,13 @@ spec:
         allowPrivilegeEscalation: false      
       imagePullSecrets:
       - name: {{ .Values.api.registrySecret }}
-      containers:     
+      containers:   
         - name: {{ printf "%s-%s" .Release.Name "api"}}
-          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"          
+          imagePullPolicy: {{ .Values.api.image.pullPolicy }}
           
           imagePullPolicy: {{ .Values.api.image.pullPolicy }}
-          env:
-          #ToDo
-          
+          env:         
           - name: KEYCLOAK_AUTH_URL
             value: {{ .Values.api.keycloak.authUrl | quote }}
           - name: KEYCLOAK_CLIENT_RESOURCE
@@ -233,11 +231,9 @@ spec:
     spec:
       securityContext:
         allowPrivilegeEscalation: false    
-      containers:
-   
+      containers:   
         - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
-          image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"
-          
+          image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"          
           imagePullPolicy: {{ .Values.fraudcase.image.pullPolicy }}
 
           env:
