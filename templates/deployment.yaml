@@ -99,6 +99,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  securityContext:
+    allowPrivilegeEscalation: false  
   replicas: {{ .Values.api.replicaCount }}
   selector:
     matchLabels:
@@ -213,6 +215,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  securityContext:
+    allowPrivilegeEscalation: false  
   replicas: {{ .Values.fraudcase.replicaCount }}
   selector:
     matchLabels:
@@ -225,9 +229,7 @@ spec:
         app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
-    spec:
-      securityContext:
-        allowPrivilegeEscalation: false    
+    spec:  
       containers:   
         - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
           image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"          
