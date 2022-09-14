@@ -19,8 +19,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  securityContext:
-    allowPrivilegeEscalation: false  
   replicas: {{ .Values.dashboard.replicaCount }}
   selector:
     matchLabels:
@@ -40,7 +38,8 @@ spec:
         - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
           image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"          
           imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
-
+          securityContext:
+            allowPrivilegeEscalation: false
           env:
           - name: API_HOST
             value: {{ .Values.dashboard.apiHost | quote }}
@@ -120,8 +119,9 @@ spec:
         - name: {{ printf "%s-%s" .Release.Name "api"}}
           image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"          
           imagePullPolicy: {{ .Values.api.image.pullPolicy }}
-          
-          imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            
           env:         
           - name: KEYCLOAK_AUTH_URL
             value: {{ .Values.api.keycloak.authUrl | quote }}
@@ -234,7 +234,8 @@ spec:
         - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
           image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"          
           imagePullPolicy: {{ .Values.fraudcase.image.pullPolicy }}
-
+          securityContext:
+            allowPrivilegeEscalation: false
           env:
           - name: fraudcase_HOST
             value: {{ .Values.fraudcase.fraudcaseHost | quote }}
