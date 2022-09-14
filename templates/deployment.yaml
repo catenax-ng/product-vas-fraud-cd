@@ -19,8 +19,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  securityContext:
-    allowPrivilegeEscalation: false
   replicas: {{ .Values.dashboard.replicaCount }}
   selector:
     matchLabels:
@@ -33,7 +31,9 @@ spec:
         app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "dashboard"}}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "dashboard"}}
-    spec:  
+    spec:
+      securityContext:
+        allowPrivilegeEscalation: false
       imagePullSecrets:
       - name: {{ .Values.dashboard.registrySecret }}
       containers:   
@@ -99,8 +99,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  securityContext:
-    allowPrivilegeEscalation: false  
   replicas: {{ .Values.api.replicaCount }}
   selector:
     matchLabels:
@@ -114,6 +112,8 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "api"}}
     spec: 
+      securityContext:
+        allowPrivilegeEscalation: false    
       imagePullSecrets:
       - name: {{ .Values.api.registrySecret }}
       containers:   
@@ -214,8 +214,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  securityContext:
-    allowPrivilegeEscalation: false  
   replicas: {{ .Values.fraudcase.replicaCount }}
   selector:
     matchLabels:
@@ -229,12 +227,13 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
     spec:  
+      securityContext:
+        allowPrivilegeEscalation: false    
       containers:   
         - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
           image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"          
           imagePullPolicy: {{ .Values.fraudcase.image.pullPolicy }}
-          securityContext:
-            allowPrivilegeEscalation: false
+
           env:
           - name: fraudcase_HOST
             value: {{ .Values.fraudcase.fraudcaseHost | quote }}
