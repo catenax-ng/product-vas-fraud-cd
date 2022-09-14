@@ -19,6 +19,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  securityContext:
+    allowPrivilegeEscalation: false  
   replicas: {{ .Values.dashboard.replicaCount }}
   selector:
     matchLabels:
@@ -31,16 +33,12 @@ spec:
         app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "dashboard"}}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "dashboard"}}
-    spec:
-      securityContext:
-        allowPrivilegeEscalation: false    
+    spec:  
       imagePullSecrets:
       - name: {{ .Values.dashboard.registrySecret }}
       containers:   
         - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
           image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"          
-          imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
-
           imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
 
           env:
@@ -113,9 +111,7 @@ spec:
         app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "api"}}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "api"}}
-    spec:
-      securityContext:
-        allowPrivilegeEscalation: false      
+    spec: 
       imagePullSecrets:
       - name: {{ .Values.api.registrySecret }}
       containers:   
