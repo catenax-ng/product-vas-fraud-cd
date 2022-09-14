@@ -32,11 +32,12 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "dashboard"}}
     spec:
+      securityContext:
+        allowPrivilegeEscalation: false    
       imagePullSecrets:
       - name: {{ .Values.dashboard.registrySecret }}
         containers:
-        securityContext:
-          allowPrivilegeEscalation: false
+
           - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
           image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"
 
@@ -113,11 +114,11 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "api"}}
     spec:
+      securityContext:
+        allowPrivilegeEscalation: false      
       imagePullSecrets:
       - name: {{ .Values.api.registrySecret }}
-      containers:
-        securityContext:
-          allowPrivilegeEscalation: false       
+      containers:     
         - name: {{ printf "%s-%s" .Release.Name "api"}}
           image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
           
@@ -230,10 +231,10 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
     spec:
-
+      securityContext:
+        allowPrivilegeEscalation: false    
       containers:
-        securityContext:
-          allowPrivilegeEscalation: false       
+   
         - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
           image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"
           
