@@ -32,15 +32,24 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "dashboard"}}
     spec:
-      securityContext:
-        allowPrivilegeEscalation: false
       imagePullSecrets:
       - name: {{ .Values.dashboard.registrySecret }}
       containers:   
         - name: {{ printf "%s-%s" .Release.Name "dashboard"}}
           image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"          
           imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
-
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.5"
+              memory: "256Mi"          
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL            
           env:
           - name: API_HOST
             value: {{ .Values.dashboard.apiHost | quote }}
@@ -111,16 +120,26 @@ spec:
         app.kubernetes.io/name: {{ printf "%s-%s" .Release.Name "api"}}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "api"}}
-    spec: 
-      securityContext:
-        allowPrivilegeEscalation: false    
+    spec:    
       imagePullSecrets:
       - name: {{ .Values.api.registrySecret }}
       containers:   
         - name: {{ printf "%s-%s" .Release.Name "api"}}
           image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"          
           imagePullPolicy: {{ .Values.api.image.pullPolicy }}
-            
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.5"
+              memory: "256Mi"          
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL     
+                
           env:         
           - name: KEYCLOAK_AUTH_URL
             value: {{ .Values.api.keycloak.authUrl | quote }}
@@ -227,13 +246,22 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app: {{ printf "%s-%s" .Release.Name "fraudcase"}}
     spec:  
-      securityContext:
-        allowPrivilegeEscalation: false    
       containers:   
         - name: {{ printf "%s-%s" .Release.Name "fraudcase"}}
           image: "{{ .Values.fraudcase.image.repository }}:{{ .Values.fraudcase.image.tag }}"          
           imagePullPolicy: {{ .Values.fraudcase.image.pullPolicy }}
-
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.5"
+              memory: "256Mi"          
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL     
           env:
           - name: fraudcase_HOST
             value: {{ .Values.fraudcase.fraudcaseHost | quote }}
