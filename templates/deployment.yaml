@@ -47,9 +47,9 @@ spec:
               memory: "256Mi"          
           securityContext:
             allowPrivilegeEscalation: false
-            #capabilities:
-            #  drop:
-            #    - ALL            
+            capabilities:
+              drop:
+                - NET_RAW            
           env:
           - name: API_HOST
             value: {{ .Values.dashboard.apiHost | quote }}
