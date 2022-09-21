@@ -5,7 +5,7 @@ dashboard:
   service:
     type: ClusterIP
     port: 80
-
+  
   image:
     repository: ghcr.io/catenax-ng/product-vas-fraud-dashboard
     tag: main
@@ -35,8 +35,7 @@ dashboard:
   readinessProbe:
     enabled: false
 
-
-api:   
+api:
   replicaCount: 1
   registrySecret: "catenax"
   image:
@@ -46,6 +45,13 @@ api:
   service:
     type: ClusterIP
     port: 8080
+
+  db:
+    user: <path:value-added-service/data/dev/api#dbuser>
+    pwd: <path:value-added-service/data/dev/api#dbpassword>
+    name: <path:value-added-service/data/dev/api#dbname>
+  sentryDsn: <path:value-added-service/data/dev/api#sentryDsn>
+  cdqKey: "<path:value-added-service/data/dev/api#cdqKey>"
 
   ingress:
     enabled: true
@@ -84,7 +90,6 @@ api:
     enabled: true
   readinessProbe:
     enabled: true
-
 
 rabbitmq:
   enabled: true
@@ -212,12 +217,14 @@ postgresql-ha:
 
 airflow:
 
-
   legacyCommands: false  
   executor: CeleryExecutor
   fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
   webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
  
+  gitUsers:
+    username: "<path:value-added-service/data/dev/airflow#gitUser>"
+    password: "<path:value-added-service/data/dev/airflow#gitPassword>"
 
   users:
     - username: <path:value-added-service/data/dev/rmq#username>
