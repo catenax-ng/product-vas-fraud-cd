@@ -47,6 +47,8 @@ api:
     port: 8080
 
   db:
+    host: "product-value-added-service-postgresql-ha-postgresql-headless"
+    port: 5432
     user: <path:value-added-service/data/dev/api#dbuser>
     pwd: <path:value-added-service/data/dev/api#dbpassword>
     name: <path:value-added-service/data/dev/api#dbname>
@@ -69,14 +71,7 @@ api:
     - name: api-fraud-dashboard.dev.demo.catena-x.net
       tls: true 
       tlsSecret: tls-secret
-
-  reactAppEnvironment:
-  db:
-    host: "product-value-added-service-postgresql-ha-postgresql-headless"
-    port: 5432
-    # -> secret
  
-
   dashboardUrl: https://fraud-dashboard.dev.demo.catena-x.net
   keycloak:
     authUrl: "https://centralidp.dev.demo.catena-x.net/auth"

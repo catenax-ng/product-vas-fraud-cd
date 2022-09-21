@@ -25,12 +25,6 @@ api:
       tls: true 
       tlsSecret: tls-secret
 
-  reactAppEnvironment:
-  db:
-    host: "product-value-added-service-postgresql-ha-postgresql-headless"
-    port: 5432
-    # -> secret
-
   dashboardUrl: https://fraud-dashboard.int.demo.catena-x.net
   keycloak:
     authUrl: "https://centralidp.int.demo.catena-x.net/auth"
