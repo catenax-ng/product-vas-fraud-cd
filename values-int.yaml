@@ -98,6 +98,9 @@ airflow:
     enabled: true
     password: airflow
 
+  rbac:
+    create: false
+
 fraudcase:
   replicaCount: 1
   image:
