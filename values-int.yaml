@@ -99,7 +99,7 @@ airflow:
     password: airflow
 
   rbac:
-    create: false
+    create: true
 
 fraudcase:
   replicaCount: 1
