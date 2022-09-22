@@ -47,6 +47,8 @@ spec:
               memory: "256Mi"          
           securityContext:
             allowPrivilegeEscalation: false
+            runAsUser: nginx
+            runAsGroup: nginx
             capabilities:
               drop:
                 - NET_RAW            
