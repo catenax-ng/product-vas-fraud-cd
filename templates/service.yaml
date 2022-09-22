@@ -48,7 +48,7 @@ spec:
   ports:
   - name: http
     port: {{ .Values.dashboard.service.port }}
-    targetPort: {{ .Values.dashboard.service.port }}
+    targetPort: {{ .Values.dashboard.service.targetport }}
     {{- if (and (eq .Values.dashboard.service.type "NodePort") (not (empty .Values.dashboard.service.nodePort)))}}
     nodePort: {{ .Values.dashboard.service.nodePort }}
     {{- end }}
