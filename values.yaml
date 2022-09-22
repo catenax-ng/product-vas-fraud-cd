@@ -338,9 +338,7 @@ airflow:
     
   redis:
     enabled: true
-    password: airflow
-
-
+    password: <path:value-added-service/data/dev/airflow#redispassword>
 
 fraudcase:
   replicaCount: 1

@@ -96,7 +96,7 @@ airflow:
     
   redis:
     enabled: true
-    password: airflow
+    password: <path:value-added-service/data/int/airflow#redispassword>
 
   rbac:
     create: true
