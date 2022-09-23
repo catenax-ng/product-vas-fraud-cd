@@ -50,8 +50,8 @@ api:
   db:
     host: "product-value-added-service-postgresql-ha-postgresql-headless"
     port: 5432
-    user: <path:value-added-service/data/dev/api#dbuser>
-    pwd: <path:value-added-service/data/dev/api#dbpassword>
+    user: <path:value-added-service/data/dev/postgresql#user>
+    pwd: <path:value-added-service/data/dev/postgresql#password>
     name: <path:value-added-service/data/dev/api#dbname>
   sentryDsn: <path:value-added-service/data/dev/api#sentryDsn>
   cdqKey: "<path:value-added-service/data/dev/api#cdqKey>"
@@ -158,7 +158,7 @@ postgresql-ha:
     enabled: false
   
   postgresql:
-    username: dashboard
+    username: <path:value-added-service/data/dev/postgresql#user>
     password: <path:value-added-service/data/dev/postgresql#password>
     repmgrPassword: <path:value-added-service/data/dev/postgresql#repmgrPassword>
     database: dashboard

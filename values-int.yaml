@@ -13,8 +13,8 @@ api:
   registrySecret: "catenax"
 
   db:
-    user: <path:value-added-service/data/int/api#dbuser>
-    pwd: <path:value-added-service/data/int/api#dbpassword>
+    user: <path:value-added-service/data/int/postgresql#user>
+    pwd: <path:value-added-service/data/int/postgresql#password>
     name: <path:value-added-service/data/int/api#dbname>
   sentryDsn: <path:value-added-service/data/int/api#sentryDsn>
   cdqKey: "<path:value-added-service/data/int/api#cdqKey>"
@@ -53,7 +53,7 @@ rabbitmq:
 postgresql-ha:
   
   postgresql:
-    username: dashboard
+    username: <path:value-added-service/data/int/postgresql#user>
     password: <path:value-added-service/data/int/postgresql#password>
     repmgrPassword: <path:value-added-service/data/int/postgresql#repmgrPassword>
 
