@@ -62,13 +62,17 @@ spec:
           - name: API_SUFFIX
             value: {{ .Values.dashboard.apiSuffix | quote }}
           - name: API_USE_SSL
-            value: {{ .Values.dashboard.useSSL | quote }}      
+            value: {{ .Values.dashboard.useSSL | quote }}
           - name: REACT_APP_ENVIRONMENT
-            value: {{ .Values.dashboard.reactAppEnvironment | quote }}      
+            value: {{ .Values.dashboard.reactAppEnvironment | quote }}
           - name: REACT_APP_API_URI
             value: {{ .Values.dashboard.apiHost | quote }}
+          - name: REACT_APP_HOME_URL
+            value: {{ .Values.dashboard.homeUrl | quote }}
           - name: REACT_APP_API_AUTH_URI
-            value: {{ .Values.api.keycloak.authUrl | quote }}            
+            value: {{ .Values.api.keycloak.authUrl | quote }}
+          - name: REACT_APP_AUTH_REALM
+            value: {{ .Values.api.keycloak.realm | quote }}
           - name: REACT_APP_AUTH_CLIENT_ID
             value: "Cl17-CDQ-Fraud"
 
