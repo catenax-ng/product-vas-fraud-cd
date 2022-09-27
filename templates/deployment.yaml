@@ -69,7 +69,7 @@ spec:
             value: {{ .Values.dashboard.apiHost | quote }}
           - name: REACT_APP_HOME_URL
             value: {{ .Values.dashboard.homeUrl | quote }}
-          - name: REACT_APP_API_AUTH_URI
+          - name: REACT_APP_AUTH_URI
             value: {{ .Values.api.keycloak.authUrl | quote }}
           - name: REACT_APP_AUTH_REALM
             value: {{ .Values.api.keycloak.realm | quote }}
