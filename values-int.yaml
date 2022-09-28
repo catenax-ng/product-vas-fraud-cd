@@ -3,6 +3,7 @@ global:
 
 dashboard:
   apiHost: api-fraud-dashboard.int.demo.catena-x.net
+  apiUrl: https://api-fraud-dashboard.int.demo.catena-x.net/
   homeUrl: https://portal.int.demo.catena-x.net/home
   ingress:
     hosts:

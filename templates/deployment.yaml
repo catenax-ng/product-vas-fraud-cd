@@ -66,7 +66,7 @@ spec:
           - name: REACT_APP_ENVIRONMENT
             value: {{ .Values.dashboard.reactAppEnvironment | quote }}
           - name: REACT_APP_API_URI
-            value: {{ .Values.dashboard.apiHost | quote }}
+            value: {{ .Values.dashboard.apiUrl | quote }}
           - name: REACT_APP_HOME_URL
             value: {{ .Values.dashboard.homeUrl | quote }}
           - name: REACT_APP_AUTH_URI

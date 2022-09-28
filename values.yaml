@@ -15,6 +15,7 @@ dashboard:
   replicaCount: 1
   registrySecret: "catenax"
   apiHost: api-fraud-dashboard.dev.demo.catena-x.net
+  apiUrl: https://api-fraud-dashboard.dev.demo.catena-x.net/
   apiPort: 8080
   ingress:
     enabled: true
