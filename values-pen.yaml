@@ -15,6 +15,7 @@ api:
   registrySecret: "catenax"
 
   db:
+    host: "product-vas-pen-postgresql-ha-postgresql-headless"
     user: <path:value-added-service/data/pen/postgresql#user>
     pwd: <path:value-added-service/data/pen/postgresql#password>
     name: <path:value-added-service/data/pen/api#dbname>
