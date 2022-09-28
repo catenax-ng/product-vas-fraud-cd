@@ -1,0 +1,141 @@
+global:
+  tag: "latest"
+
+dashboard:
+  apiHost: api-fraud-dashboard-pen.dev.demo.catena-x.net
+  apiUrl: https://api-fraud-dashboard-pen.dev.demo.catena-x.net/
+  homeUrl: https://portal-pen.dev.demo.catena-x.net/home
+  ingress:
+    hosts:
+    - name: fraud-dashboard-pen.dev.demo.catena-x.net
+      tls: true 
+      tlsSecret: tls-secret
+
+api:   
+  registrySecret: "catenax"
+
+  db:
+    user: <path:value-added-service/data/pen/postgresql#user>
+    pwd: <path:value-added-service/data/pen/postgresql#password>
+    name: <path:value-added-service/data/pen/api#dbname>
+  sentryDsn: <path:value-added-service/data/pen/api#sentryDsn>
+  cdqKey: "<path:value-added-service/data/pen/api#cdqKey>"
+
+  ingress:
+    hosts:
+    - name: api-fraud-dashboard-pen.dev.demo.catena-x.net
+      tls: true 
+      tlsSecret: tls-secret
+
+  dashboardUrl: https://fraud-dashboard-pen.dev.demo.catena-x.net
+  keycloak:
+    authUrl: "https://centralidp-pen.dev.demo.catena-x.net/auth"
+    clientResource: "Cl9-CDQ-Fraud"
+    clientRole: "fraud_app_user"
+    realm: "CX-Central"
+  # -> secret
+
+rabbitmq:
+  auth:
+    erlangCookie: <path:value-added-service/data/pen/rmq#erlangCookie>
+    username: <path:value-added-service/data/pen/rmq#username>
+    password: <path:value-added-service/data/pen/rmq#password>
+
+  ingress:
+    pathType: ImplementationSpecific
+    hostname: rabbitmq-fraud-dashboard-pen.dev.demo.catena-x.net
+    tls:
+      enabled: true
+      
+    extraTls:
+      - hosts:  
+        - rabbitmq-fraud-dashboard-pen.dev.demo.catena-x.net
+        secretName: "tls-secret"
+
+postgresql-ha:
+  
+  postgresql:
+    username: <path:value-added-service/data/pen/postgresql#user>
+    password: <path:value-added-service/data/pen/postgresql#password>
+    repmgrPassword: <path:value-added-service/data/pen/postgresql#repmgrPassword>
+
+  pgpool:
+    adminPassword: <path:value-added-service/data/pen/postgresql#password>
+
+airflow:
+
+  fernetKey: "<path:value-added-service/data/pen/airflow#fernetKey>"
+  webserverSecretKey: "<path:value-added-service/data/pen/airflow#webserverSecretKey>"
+ 
+  gitUsers:
+    username: "<path:value-added-service/data/pen/airflow#gitUser>"
+    password: "<path:value-added-service/data/pen/airflow#gitPassword>"
+
+  users:
+    - username: <path:value-added-service/data/pen/rmq#username>
+      password: <path:value-added-service/data/pen/rmq#password>
+      role: Admin
+      email: path:value-added-service/data/pen/airflow#email>
+      firstName: admin
+      lastName: admin
+
+  ingress:
+
+    web:
+      host: airflow-fraud-dashboard-pen.dev.demo.catena-x.net
+
+    flower:
+      host: flower-fraud-dashboard-pen.dev.demo.catena-x.net
+      tls:
+        enabled: true
+        secretName: "tls-secret"
+   
+  postgresql:
+    enabled: true
+    database: airflow
+    postgresPassword: <path:value-added-service/data/pen/airflow#pgpassword>
+    username: postgres
+    
+  redis:
+    enabled: true
+    password: <path:value-added-service/data/pen/airflow#redispassword>
+
+  rbac:
+    create: true
+
+fraudcase:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/catenax-ng/product-vas-fraud-workers
+    tag: main
+
+  rmqUrl: <path:value-added-service/data/pen/worker#rmqUrl>
+  rmqQueueName: <path:value-added-service/data/pen/worker#rmqQueueName>
+  sentryDsn: <path:value-added-service/data/pen/worker#sentryDsn>
+
+  catenaxApiUrl: "<path:value-added-service/data/pen/worker#catenaxApiUrl>"
+  catenaxApiKey: "<path:value-added-service/data/pen/worker#catenaxApiKey>"
+  
+  cdqApiUrl: "<path:value-added-service/data/pen/worker#cdqApiUrl>"
+  cdqApiKey: "<path:value-added-service/data/pen/worker#cdqApiKey>"
+
+pgadmin4:
+  enabled: true
+  secret:
+    password: "<path:value-added-service/data/pen/pgadmin4#password>"
+  env:
+    email: fraud@catena-x.net
+  existingSecret: secret-pgadmin4
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: pgadmin-fraud-dashboard-pen.dev.demo.catena-x.net
+        paths:
+        - path: /
+          pathType: Prefix
+    tls:
+      - hosts:
+        - pgadmin-fraud-dashboard-pen.dev.demo.catena-x.net
+        secretName: tls-secret
