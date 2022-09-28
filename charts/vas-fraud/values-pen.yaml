@@ -70,10 +70,10 @@ airflow:
     webserverSecretKey: "<path:value-added-service/data/pen/airflow#webserverSecretKey>"
  
     users:
-      - username: <path:value-added-service/data/pen/rmq#username>
-        password: <path:value-added-service/data/pen/rmq#password>
+      - username: <path:value-added-service/data/pen/airflow#username>
+        password: <path:value-added-service/data/pen/airflow#password>
         role: Admin
-        email: path:value-added-service/data/pen/airflow#email>
+        email: <path:value-added-service/data/pen/airflow#email>
         firstName: admin
         lastName: admin
 

@@ -7,15 +7,12 @@ dashboard:
     port: 80
     targetport: 8080
   
-  homeUrl: https://portal.dev.demo.catena-x.net/home
   image:
     repository: ghcr.io/catenax-ng/product-vas-fraud-dashboard
     tag: main
     pullPolicy: Always
   replicaCount: 1
   registrySecret: "catenax"
-  apiHost: api-fraud-dashboard.dev.demo.catena-x.net
-  apiUrl: https://api-fraud-dashboard.dev.demo.catena-x.net/
   apiPort: 8080
   ingress:
     enabled: true
@@ -27,11 +24,6 @@ dashboard:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: 10m
-    
-    hosts:
-    - name: fraud-dashboard.dev.demo.catena-x.net
-      tls: true 
-      tlsSecret: tls-secret
 
   livenessProbe:
     enabled: false
@@ -52,11 +44,6 @@ api:
   db:
     host: "product-value-added-service-postgresql-ha-postgresql-headless"
     port: 5432
-    user: <path:value-added-service/data/dev/postgresql#user>
-    pwd: <path:value-added-service/data/dev/postgresql#password>
-    name: <path:value-added-service/data/dev/api#dbname>
-  sentryDsn: <path:value-added-service/data/dev/api#sentryDsn>
-  cdqKey: "<path:value-added-service/data/dev/api#cdqKey>"
 
   ingress:
     enabled: true
@@ -70,15 +57,8 @@ api:
       nginx.ingress.kubernetes.io/ssl-passthrough: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: 10m
     paths: /
-    hosts:
-    - name: api-fraud-dashboard.dev.demo.catena-x.net
-      tls: true 
-      tlsSecret: tls-secret
  
-  dashboardUrl: https://fraud-dashboard.dev.demo.catena-x.net
   keycloak:
-    authUrl: "https://centralidp.dev.demo.catena-x.net/auth"
-    #authUrl: https://keycloak.catenax-cdq.com/auth/
     clientResource: "Cl9-CDQ-Fraud"
     clientRole: "fraud_app_user"
     realm: "CX-Central"
@@ -92,10 +72,6 @@ api:
 rabbitmq:
   enabled: true
   replicaCount: 1
-  auth:
-    erlangCookie: <path:value-added-service/data/dev/rmq#erlangCookie>
-    username: <path:value-added-service/data/dev/rmq#username>
-    password: <path:value-added-service/data/dev/rmq#password>
   plugins: "rabbitmq_management rabbitmq_peer_discovery_k8s"
 
   extraSecrets:
@@ -131,7 +107,6 @@ rabbitmq:
     path: /
 
     pathType: ImplementationSpecific
-    hostname: rabbitmq-fraud-dashboard.dev.demo.catena-x.net
     annotations: 
       kubernetes.io/ingress.class: nginx
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -146,11 +121,6 @@ rabbitmq:
       nginx.ingress.kubernetes.io/proxy-send-timeout: "4000"
     tls:
       enabled: true
-      
-    extraTls:
-      - hosts:  
-        - rabbitmq-fraud-dashboard.dev.demo.catena-x.net
-        secretName: "tls-secret"
 
 postgresql-ha:
   
@@ -160,9 +130,6 @@ postgresql-ha:
     enabled: false
   
   postgresql:
-    username: <path:value-added-service/data/dev/postgresql#user>
-    password: <path:value-added-service/data/dev/postgresql#password>
-    repmgrPassword: <path:value-added-service/data/dev/postgresql#repmgrPassword>
     database: dashboard
     replicaCount: 2 
     updateStrategyType: RollingUpdate    
@@ -181,7 +148,6 @@ postgresql-ha:
     debug: false
 
   pgpool:
-    adminPassword: <path:value-added-service/data/dev/postgresql#password>
     srCheckDatabase: postgres
     replicaCount: 1
     securityContext:
@@ -218,19 +184,8 @@ airflow:
   airflow:
     legacyCommands: false  
     executor: CeleryExecutor
-    fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
-    webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
  
-    users:
-      - username: <path:value-added-service/data/dev/rmq#username>
-        password: <path:value-added-service/data/dev/rmq#password>
-        role: Admin
-        email: path:value-added-service/data/dev/airflow#email>
-        firstName: admin
-        lastName: admin
-
     usersUpdate: true
-
     connectionsUpdate: true
     variablesUpdate: true
     poolsUpdate: true
@@ -255,7 +210,6 @@ airflow:
       loadBalancerIP: ""
       nodePort:
         http: ""
-
 
   triggerer:
     enabled: true
@@ -293,8 +247,6 @@ airflow:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: 10m
       
-      host: airflow-fraud-dashboard.dev.demo.catena-x.net
-
       tls:
         enabled: true
         secretName: "tls-secret"
@@ -307,7 +259,6 @@ airflow:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: 10m
      
-      host: flower-fraud-dashboard.dev.demo.catena-x.net
       tls:
         enabled: true
         secretName: "tls-secret"
@@ -325,7 +276,6 @@ airflow:
   postgresql:
     enabled: true
     database: airflow
-    postgresPassword: <path:value-added-service/data/dev/airflow#pgpassword>
     username: postgres  
 
     persistence:
@@ -336,23 +286,12 @@ airflow:
     
   redis:
     enabled: true
-    password: <path:value-added-service/data/dev/airflow#redispassword>
 
 fraudcase:
   replicaCount: 1
   image:
     repository: ghcr.io/catenax-ng/product-vas-fraud-workers
     tag: main
-
-  rmqUrl: <path:value-added-service/data/dev/worker#rmqUrl>
-  rmqQueueName: <path:value-added-service/data/dev/worker#rmqQueueName>
-  sentryDsn: <path:value-added-service/data/dev/worker#sentryDsn>
-
-  catenaxApiUrl: "<path:value-added-service/data/dev/worker#catenaxApiUrl>"
-  catenaxApiKey: "<path:value-added-service/data/dev/worker#catenaxApiKey>"
-  
-  cdqApiUrl: "<path:value-added-service/data/dev/worker#cdqApiUrl>"
-  cdqApiKey: "<path:value-added-service/data/dev/worker#cdqApiKey>"
 
   livenessProbe:
     enabled: true
@@ -361,8 +300,6 @@ fraudcase:
 
 pgadmin4:
   enabled: true
-  secret:
-    password: "<path:value-added-service/data/dev/pgadmin4#password>"
   env:
     email: fraud@catena-x.net
   existingSecret: secret-pgadmin4
@@ -370,12 +307,3 @@ pgadmin4:
     enabled: true
     annotations:
       kubernetes.io/ingress.class: nginx
-    hosts:
-      - host: pgadmin-fraud-dashboard.dev.demo.catena-x.net
-        paths:
-        - path: /
-          pathType: Prefix
-    tls:
-      - hosts:
-        - pgadmin-fraud-dashboard.dev.demo.catena-x.net
-        secretName: tls-secret
