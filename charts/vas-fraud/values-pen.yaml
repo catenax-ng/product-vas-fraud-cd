@@ -65,20 +65,17 @@ postgresql-ha:
 
 airflow:
 
-  fernetKey: "<path:value-added-service/data/pen/airflow#fernetKey>"
-  webserverSecretKey: "<path:value-added-service/data/pen/airflow#webserverSecretKey>"
+  airflow:
+    fernetKey: "<path:value-added-service/data/pen/airflow#fernetKey>"
+    webserverSecretKey: "<path:value-added-service/data/pen/airflow#webserverSecretKey>"
  
-  gitUsers:
-    username: "<path:value-added-service/data/pen/airflow#gitUser>"
-    password: "<path:value-added-service/data/pen/airflow#gitPassword>"
-
-  users:
-    - username: <path:value-added-service/data/pen/rmq#username>
-      password: <path:value-added-service/data/pen/rmq#password>
-      role: Admin
-      email: path:value-added-service/data/pen/airflow#email>
-      firstName: admin
-      lastName: admin
+    users:
+      - username: <path:value-added-service/data/pen/rmq#username>
+        password: <path:value-added-service/data/pen/rmq#password>
+        role: Admin
+        email: path:value-added-service/data/pen/airflow#email>
+        firstName: admin
+        lastName: admin
 
   ingress:
 

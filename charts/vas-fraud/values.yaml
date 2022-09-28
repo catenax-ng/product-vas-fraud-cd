@@ -215,39 +215,34 @@ postgresql-ha:
 
 airflow:
 
-  legacyCommands: false  
-  executor: CeleryExecutor
-  fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
-  webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
+  airflow:
+    legacyCommands: false  
+    executor: CeleryExecutor
+    fernetKey: "<path:value-added-service/data/dev/airflow#fernetKey>"
+    webserverSecretKey: "<path:value-added-service/data/dev/airflow#webserverSecretKey>"
  
-  gitUsers:
-    username: "<path:value-added-service/data/dev/airflow#gitUser>"
-    password: "<path:value-added-service/data/dev/airflow#gitPassword>"
+    users:
+      - username: <path:value-added-service/data/dev/rmq#username>
+        password: <path:value-added-service/data/dev/rmq#password>
+        role: Admin
+        email: path:value-added-service/data/dev/airflow#email>
+        firstName: admin
+        lastName: admin
 
-  users:
-    - username: <path:value-added-service/data/dev/rmq#username>
-      password: <path:value-added-service/data/dev/rmq#password>
-      role: Admin
-      email: path:value-added-service/data/dev/airflow#email>
-      firstName: admin
-      lastName: admin
+    usersUpdate: true
 
-  usersUpdate: true
+    connectionsUpdate: true
+    variablesUpdate: true
+    poolsUpdate: true
+    defaultSecurityContext:
+      ## sets the filesystem owner group of files/folders in mounted volumes
+      ## this does NOT give root permissions to Pods, only the "root" group
+      fsGroup: 0
 
-  connectionsUpdate: true
-  variablesUpdate: true
-  poolsUpdate: true
-  defaultSecurityContext:
-    ## sets the filesystem owner group of files/folders in mounted volumes
-    ## this does NOT give root permissions to Pods, only the "root" group
-    fsGroup: 0
-
-
-  extraPipPackages: 
-  - apache-airflow[sentry]
-  protectedPipPackages:
-    - "apache-airflow"
-
+    extraPipPackages: 
+    - apache-airflow[sentry]
+    protectedPipPackages:
+      - "apache-airflow"
 
   ###################################
   ## COMPONENT | Airflow Webserver
