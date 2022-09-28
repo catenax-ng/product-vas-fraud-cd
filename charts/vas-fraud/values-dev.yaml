@@ -77,6 +77,18 @@ airflow:
         firstName: admin
         lastName: admin
 
+    variables:
+      - key: "rmq_username"
+        value: "<path:value-added-service/data/dev/rmq#username>"
+      - key: "rmq_password"
+        value: "<path:value-added-service/data/dev/rmq#password>"
+      - key: "rmq_bpdm_sync_queue_name"
+        value: "catenax-test"
+      - key: "rmq_fraud_sync_queue_name"
+        value: "<path:value-added-service/data/dev/worker#rmqQueueName>"
+      - key: "rmq_url"
+        value: "https://rabbitmq-fraud-dashboard.dev.demo.catena-x.net/api/exchanges/%2F//publish"
+
   ingress:
 
     web:
