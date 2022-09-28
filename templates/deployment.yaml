@@ -74,7 +74,7 @@ spec:
           - name: REACT_APP_AUTH_REALM
             value: {{ .Values.api.keycloak.realm | quote }}
           - name: REACT_APP_AUTH_CLIENT_ID
-            value: "Cl17-CDQ-Fraud"
+            value: {{ .Values.api.keycloak.clientResource | quote }}
 
           {{- if .Values.dashboard.livenessProbe.enabled }}
           livenessProbe:
