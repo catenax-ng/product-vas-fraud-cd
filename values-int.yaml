@@ -28,7 +28,7 @@ api:
 
   dashboardUrl: https://fraud-dashboard.int.demo.catena-x.net
   keycloak:
-    authUrl: "https://centralidp.int.demo.catena-x.net/auth"
+    authUrl: "https://centralidp.demo.catena-x.net/auth"
     clientResource: "Cl9-CDQ-Fraud"
     clientRole: "fraud_app_user"
     realm: "CX-Central"
