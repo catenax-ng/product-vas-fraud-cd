@@ -87,6 +87,8 @@ airflow:
         value: "<path:value-added-service/data/int/worker#rmqQueueName>"
       - key: "rmq_url"
         value: "https://rabbitmq-fraud-dashboard.int.demo.catena-x.net/api/exchanges/%2F//publish"
+      - key: "cdq_api_key"
+        value: "<path:value-added-service/data/int/worker#cdqApiKey>"
 
   ingress:
 
