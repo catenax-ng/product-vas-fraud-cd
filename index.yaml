@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  dashboard:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2022-10-10T15:05:24.468151599Z"
+    description: A Helm chart for catenax dashboard stack
+    digest: f0eebd01e92dc33562ea1114509c9e0b3d3851c6369f91ffb449f062af944694
+    name: dashboard
+    urls:
+    - https://github.com/catenax-ng/product-vas-fraud-cd/releases/download/dashboard-0.2.3/dashboard-0.2.3.tgz
+    version: 0.2.3
+generated: "2022-10-10T15:05:24.4681637Z"
