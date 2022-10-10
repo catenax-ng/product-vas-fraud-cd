@@ -1,7 +1,6 @@
 name: Release Chart
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - '*'
@@ -29,7 +28,12 @@ jobs:
         with:
           version: v3.9.1
 
+      - name: Add Helm repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add airflow https://charts.bitnami.com/bitnami
+
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.0
+        uses: luisico/chart-releaser-action@on-tags
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
