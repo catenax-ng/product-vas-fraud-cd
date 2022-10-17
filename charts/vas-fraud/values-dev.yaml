@@ -120,7 +120,7 @@ fraudcase:
   image:
     repository: ghcr.io/catenax-ng/product-vas-fraud-workers
     tag: main
-
+    pullPolicy: Always
   rmqUrl: <path:value-added-service/data/dev/worker#rmqUrl>
   rmqQueueName: <path:value-added-service/data/dev/worker#rmqQueueName>
   sentryDsn: <path:value-added-service/data/dev/worker#sentryDsn>
