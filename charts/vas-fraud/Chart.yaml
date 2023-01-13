@@ -7,7 +7,7 @@ version: 0.2.3
 dependencies:
 - name: rabbitmq
   condition: rabbitmq.enabled
-  version: 8.x.x
+  version: 10.3.9
   repository: https://charts.bitnami.com/bitnami
 - name: postgresql-ha
   condition: postgresql-ha.enabled
