@@ -11,7 +11,7 @@ dependencies:
   repository: https://charts.bitnami.com/bitnami
 - name: postgresql-ha
   condition: postgresql-ha.enabled
-  version: 9.4.11
+  version: 10.0.x
   repository: https://charts.bitnami.com/bitnami
 - name: airflow 
   condition: airflow.enabled
