@@ -53,12 +53,13 @@ rabbitmq:
         - rabbitmq-fraud-dashboard.dev.demo.catena-x.net
         secretName: "tls-secret"
 
-postgresql-ha:
+postgresql-ha:  
   
   postgresql:
-    username: <path:value-added-service/data/dev/postgresql#user>
-    password: <path:value-added-service/data/dev/postgresql#password>
-    repmgrPassword: <path:value-added-service/data/dev/postgresql#repmgrPassword>
+    auth:
+      username: <path:value-added-service/data/dev/postgresql#user>
+      password: <path:value-added-service/data/dev/postgresql#password>
+      repmgrPassword: <path:value-added-service/data/dev/postgresql#repmgrPassword>
 
   pgpool:
     adminPassword: <path:value-added-service/data/dev/postgresql#password>

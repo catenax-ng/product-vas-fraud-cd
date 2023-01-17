@@ -133,9 +133,10 @@ postgresql-ha:
     database: dashboard
     replicaCount: 2 
     updateStrategyType: RollingUpdate    
-    securityContext:
-      enabled: true
-      fsGroup: 1001   
+    pod:
+      securityContext:
+        enabled: true
+        fsGroup: 1001   
   
     pdb:
       create: false
