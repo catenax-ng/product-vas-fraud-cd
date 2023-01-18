@@ -55,9 +55,10 @@ rabbitmq:
 postgresql-ha:
   
   postgresql:
-    username: <path:value-added-service/data/int/postgresql#user>
-    password: <path:value-added-service/data/int/postgresql#password>
-    repmgrPassword: <path:value-added-service/data/int/postgresql#repmgrPassword>
+    auth:
+      username: <path:value-added-service/data/int/postgresql#user>
+      password: <path:value-added-service/data/int/postgresql#password>
+      repmgrPassword: <path:value-added-service/data/int/postgresql#repmgrPassword>
 
   pgpool:
     adminPassword: <path:value-added-service/data/int/postgresql#password>
