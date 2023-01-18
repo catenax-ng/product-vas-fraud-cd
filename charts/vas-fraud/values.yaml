@@ -131,7 +131,7 @@ postgresql-ha:
   
   postgresql:
     database: dashboard
-    replicaCount: 2 
+    replicaCount: 2
     updateStrategyType: RollingUpdate    
     pod:
       securityContext:
