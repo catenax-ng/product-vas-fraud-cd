@@ -15,8 +15,7 @@ api:
   registrySecret: "catenax"
 
   db:
-    #host: "product-value-added-service-postgresql-ha-postgresql-headless"
-    host: "product-value-added-service-postgresql-ha-postgresql-0"
+    host: "product-value-added-service-postgresql-ha-postgresql-headless"
     user: <path:value-added-service/data/dev/postgresql#user>
     pwd: <path:value-added-service/data/dev/postgresql#password>
     name: <path:value-added-service/data/dev/api#dbname>
